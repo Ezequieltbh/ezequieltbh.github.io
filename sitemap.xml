@@ -8,7 +8,36 @@
   </url>
   
   <url>
+    <loc>https://ezequieltbh.me/posts/2015/08/es-cybercamp-2015-ctf-criptografia-challenge/</loc>
+    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ezequieltbh.me/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/criptografia/</loc>
+    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/crypto/</loc>
+    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/ctf/</loc>
+    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/cybercamp/</loc>
+    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -19,7 +48,14 @@
   </url>
   
   <url>
+    <loc>https://ezequieltbh.me/posts/</loc>
+    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ezequieltbh.me/tags/</loc>
+    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

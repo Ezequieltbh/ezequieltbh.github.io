@@ -6,9 +6,46 @@
     <description>Recent content in Tags on EzequielTBH Blog&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Wed, 05 Aug 2015 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://ezequieltbh.me/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Criptografia</title>
+      <link>https://ezequieltbh.me/tags/criptografia/</link>
+      <pubDate>Wed, 05 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/tags/criptografia/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Crypto</title>
+      <link>https://ezequieltbh.me/tags/crypto/</link>
+      <pubDate>Wed, 05 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/tags/crypto/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ctf</title>
+      <link>https://ezequieltbh.me/tags/ctf/</link>
+      <pubDate>Wed, 05 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cybercamp</title>
+      <link>https://ezequieltbh.me/tags/cybercamp/</link>
+      <pubDate>Wed, 05 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/tags/cybercamp/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

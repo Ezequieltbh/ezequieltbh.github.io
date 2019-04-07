@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="Ezequiel Tavella ">
+<meta name="description"
+    content="El dia 17 de julio inicio el CTF 2015 de Cybercamp, el mismo era del estilo jeopardy y constaba de retos de criptografia, forensica, exploiting, web y reversing.
+En mi caso termine en el puesto 44, tan solo a 4 de clasificar, una lastima no tener mas tiempo para dedicarlo a los retos.
+Empezamos con uno de criptografia!
+Descripcion: Se ha logrado interceptar dos criptogramas denominados C1 y C2, asi como sus correspondientes textos planos M1 y M2." />
+<meta name="keywords" content="computers, network, hacking, security, research" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ezequieltbh.me/posts/2015/08/es-cybercamp-2015-ctf-criptografia-challenge/" />
+
+
+<title>
+    
+    [ES] Cybercamp 2015 CTF: Criptografia challenge :: EzequielTBH Blog&#39;s 
+    
+</title>
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro" rel="stylesheet"
+    type="text/css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+<link rel="stylesheet" href="https://ezequieltbh.me/scss/main.min.099699ab246bf26f50616f7c9f00c79d46110459d1bd727b2d07d6fc09ece082.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://ezequieltbh.me/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ezequieltbh.me/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ezequieltbh.me/favicon-16x16.png">
+<link rel="manifest" href="https://ezequieltbh.me/site.webmanifest">
+<link rel="mask-icon" href="https://ezequieltbh.me/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="https://ezequieltbh.me/favicon.ico">
+<meta name="theme-color" content="#252627">
+<meta itemprop="name" content="[ES] Cybercamp 2015 CTF: Criptografia challenge">
+<meta itemprop="description" content="El dia 17 de julio inicio el CTF 2015 de Cybercamp, el mismo era del estilo jeopardy y constaba de retos de criptografia, forensica, exploiting, web y reversing.
+En mi caso termine en el puesto 44, tan solo a 4 de clasificar, una lastima no tener mas tiempo para dedicarlo a los retos.
+Empezamos con uno de criptografia!
+Descripcion: Se ha logrado interceptar dos criptogramas denominados C1 y C2, asi como sus correspondientes textos planos M1 y M2.">
+
+
+<meta itemprop="datePublished" content="2015-08-05T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2015-08-05T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="612">
+
+
+
+<meta itemprop="keywords" content="CTF,Cybercamp,Criptografia,Crypto," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ezequieltbh.me"/>
+
+<meta name="twitter:title" content="[ES] Cybercamp 2015 CTF: Criptografia challenge"/>
+<meta name="twitter:description" content="El dia 17 de julio inicio el CTF 2015 de Cybercamp, el mismo era del estilo jeopardy y constaba de retos de criptografia, forensica, exploiting, web y reversing.
+En mi caso termine en el puesto 44, tan solo a 4 de clasificar, una lastima no tener mas tiempo para dedicarlo a los retos.
+Empezamos con uno de criptografia!
+Descripcion: Se ha logrado interceptar dos criptogramas denominados C1 y C2, asi como sus correspondientes textos planos M1 y M2."/>
+
+
+
+
+<meta property="article:published_time" content="2015-08-05 00:00:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://ezequieltbh.me/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text"># </span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://ezequieltbh.me/about/">About</a></li><li><a href="https://ezequieltbh.me/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>3 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="https://ezequieltbh.me/posts/2015/08/es-cybercamp-2015-ctf-criptografia-challenge/">[ES] Cybercamp 2015 CTF: Criptografia challenge</a></h2>
+
+            
+
+            <div class="post-content">
+                <p>El dia 17 de julio inicio el CTF 2015 de Cybercamp, el mismo era del estilo jeopardy y constaba de retos de criptografia, forensica, exploiting, web y reversing.</p>
+
+<p>En mi caso termine en el puesto 44, tan solo a 4 de clasificar, una lastima no tener mas tiempo para dedicarlo a los retos.</p>
+
+<p>Empezamos con uno de criptografia!</p>
+
+<p>Descripcion: Se ha logrado interceptar dos criptogramas denominados C1 y C2, asi como sus correspondientes textos planos M1 y M2. Se desea generar C3, el cual es el criptograma correspondiente a M3. Se sabe que el cifrado utilizado es DES-ECB.</p>
+
+<p>Datos:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">M1 = INGRESAR ARACELI GONZALEZ 1.000
+M2 = INGRESAR MANUEL FERNANDEZ 10.000
+C1 = C4 41 ED E3 5C 67 4D D5 ED 61 A5 3F 72 1F E3 F4 9F 7E D0 56 6C 93 DE 1B 89 80 8E D0 95 75 C7 66
+C2 = C4 41 ED E3 5C 67 4D D5 49 89 15 5D 3E 6B 2A A8 69 DF C0 30 B6 85 DC DE 82 9D EF 5D EB A1 D8 C1
+M3 a cifrar: INGRESAR ARACELI GONZALEZ 10.000</code></pre></div>
+<p>Como pueden ver a primera vista ya hay algo extraño, los primeros bytes de los dos criptogramas se repiten lo que nos hace pensar ya en un problema de confidencialidad como minimo.</p>
+
+<p>Debido a que no hay ningun dato que nos permita obtener la Key de cifrado y que el algoritmo DES no es un cifrado reversible, hay que investigar un poco mas sobre ECB.</p>
+
+<p>Con una busqueda rapida en Wikipedia nos encontramos con que este modo de operacion por bloques <a href="https://es.wikipedia.org/wiki/Cifrado_por_bloques#Electronic_Code-Book_.28ECB.29" target="_blank">ECB ( Electronic Code-book)</a>, tiene dos problemas: confidencialidad y replay attack.</p>
+
+<p>El primero lo pudimos ver antes, si los bloques son iguales, sus textos planos coinciden.</p>
+
+<p>El segundo es un ataque que se basa en el principio basico de este modo ECB: cada <strong>bloque se cifra independientemente</strong> del otro o de otra cosa. Con esto si necesitamos construir un criptograma nuevo, si tenemos sus textos planos y criptogramas correspondientes, tan solo hay que unir los bloques correspondientes.</p>
+
+<p>Eso es lo que exactamente necesitamos para obtener el flag, asi que vamos a dividir los criptogramas en bloques de 8 bytes y obtenemos&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">M1 = i  n  g  r  e  s  a  r |  a  r  a  c  e  l  i   |    g  o  n  z  a  l  e | z     1  .  0  0  0  
+C1 = C4 41 ED E3 5C 67 4D D5| ED 61 A5 3F 72 1F E3 F4| 9F 7E D0 56 6C 93 DE 1B| 89 80 8E D0 95 75 C7 66
+C2 = C4 41 ED E3 5C 67 4D D5| 49 89 15 5D 3E 6B 2A A8| 69 DF C0 30 B6 85 DC DE| 82 9D EF 5D EB A1 D8 C1
+M2 =  i  n  g  r  e  s  a  r|     m  a  n  u  e  l   |  f  e  r  n  a  n  d  e| z     1   0  .  0  0  0 </code></pre></div>
+<p>Como podemos ver el primer bloque coincide en los dos criptogramas y ahora ya sabemos por que, para obtener el flag simplemente tomamos de C1 los primeros tres bloques ( &ldquo;ingresar araceli gonzale&rdquo;) y de C2 tomamos el ultimo bloque( &ldquo;z 10.000&rdquo;).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">C3 : C441EDE35C674DD5ED61A53F721FE3F49F7ED0566C93DE1B829DEF5DEBA1D8C1</code></pre></div>
+<p>Con esto obtenemos el criptograma correspondiente el cual es valido y es nuestra flag!</p>
+
+<p>Las recomendacion para evitar estos problemas son:</p>
+
+<ol>
+<li><p>No utilizar DES, es un algoritmo que se a probado que es vulnerable, utilizar AES el cual es su sucesor.</p></li>
+
+<li><p>No utilizar ECB, debido a que tiene fallos de confidencialidad y es vulnerable al replay attack, utilizar otros modos como CBC, CFB, OFB y CTR.</p></li>
+</ol>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://ezequieltbh.me/tags/ctf">CTF</a></span><span class="tag"><a href="https://ezequieltbh.me/tags/cybercamp">Cybercamp</a></span><span class="tag"><a href="https://ezequieltbh.me/tags/criptografia">Criptografia</a></span><span class="tag"><a href="https://ezequieltbh.me/tags/crypto">Crypto</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>612 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2015-08-04 21:00 -0300</p>
+        </div>
+
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2019</span>
+            
+                <span><a href="https://ezequieltbh.me">Ezequiel Tavella</a></span>
+            
+            <span>All rights reserved.</span>
+            <span> <a href="https://ezequieltbh.me/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">rhazdon</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://ezequieltbh.me/js/bundle.dd80b4936d9208f7384932ce622316900942c58cd138dd354b6a863e212c7fd1c951c7c3e5b83585da6297165e02ddfddbe523bbb46478a41628469263b7f000.js" integrity="sha512-3YC0k22SCPc4STLOYiMWkAlCxYzRON01S2qGPiEsf9HJUcfD5bg1hdpilxZeAt392&#43;Uju7RkeKQWKEaSY7fwAA=="></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-137782393-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
+    </body>
+</html>

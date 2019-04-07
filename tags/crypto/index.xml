@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>EzequielTBH Blog&#39;s</title>
-    <link>https://ezequieltbh.me/</link>
-    <description>Recent content on EzequielTBH Blog&#39;s</description>
+    <title>Crypto on EzequielTBH Blog&#39;s</title>
+    <link>https://ezequieltbh.me/tags/crypto/</link>
+    <description>Recent content in Crypto on EzequielTBH Blog&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Sun, 07 Apr 2019 01:18:57 -0300</lastBuildDate>
+    <lastBuildDate>Wed, 05 Aug 2015 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://ezequieltbh.me/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://ezequieltbh.me/tags/crypto/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>About</title>
-      <link>https://ezequieltbh.me/about/</link>
-      <pubDate>Sun, 07 Apr 2019 01:18:57 -0300</pubDate>
-      
-      <guid>https://ezequieltbh.me/about/</guid>
-      <description>My name is Ezequiel, but you already know that because of my nick :)
-Here I’m going to publish every research that I do in my free time about information security, especially offensive security.
-What do you do? I am a Security Researcher, my everyday job is looking for security bugs in applications and networks.
-For a few years, I also worked as a Full Stack developer, so the Code is my friend too.</description>
-    </item>
     
     <item>
       <title>[ES] Cybercamp 2015 CTF: Criptografia challenge</title>

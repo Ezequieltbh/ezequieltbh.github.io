@@ -11,20 +11,4 @@
     
     
   </channel>
-</rss>="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>About</title>
-      <link>https://ezequieltbh.me/about/</link>
-      <pubDate>Sun, 07 Apr 2019 01:18:57 -0300</pubDate>
-      
-      <guid>https://ezequieltbh.me/about/</guid>
-      <description>My name is Ezequiel, but you already know that because of my nick :)
-Here I’m going to publish every research that I do in my free time about information security, especially offensive security.
-What do you do? I am a Security Researcher, my everyday job is looking for security bugs in applications and networks.
-For a few years, I also worked as a Full Stack developer, so the Code is my friend too.</description>
-    </item>
-    
-  </channel>
 </rss>

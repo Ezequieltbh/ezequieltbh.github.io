@@ -63,6 +63,109 @@ M2 =  i  n  g  r  e  s  a  r|     m  a  n  u  e  l   |  f  
         </item>
         
         <item>
+            <title>[ES] CTF InfosecInstitute - Parte 2</title>
+            <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-2/</link>
+            <pubDate>Sun, 15 Mar 2015 00:00:00 +0000</pubDate>
+            
+            <guid>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-2/</guid>
+            <description>Seguimos con los retos del CTF InfosecInstitute, esta vez del 6 al 10.
+Level 6:
+Nos encontramos con un Pcap, una captura de trafico de red asi que vamos a descargarla y ver que hay, utilizamos Wireshark para abrirla y nos encontramos con lo siguiente:
+Demasiadas conexion cifradas TLS, al parecer se hizo una captura de un equipo que estaba navegando por HTTPS en una web, debido a que esta informacion viaja cifrada no podemos ver cual es el contenido a menos que se tenga el certificado del servidor el cual incluye la clave privada.</description>
+            <content type="html"><![CDATA[<p>Seguimos con los retos del CTF InfosecInstitute, esta vez del 6 al 10.</p>
+
+<p>Level 6:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-2/2015-03-14 17_19_23-.jpg" alt="Level-6-Captura-Red" /></p>
+
+<p>Nos encontramos con un <strong>Pcap</strong>, una captura de trafico de red asi que vamos a descargarla y ver que hay, utilizamos <strong>Wireshark</strong> para abrirla y nos encontramos con lo siguiente:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-2/2015-03-14 17_23_26-.jpg" alt="Level-6-Captura-Red" /></p>
+
+<p>Demasiadas conexion cifradas <strong>TLS</strong>, al parecer se hizo una captura de un equipo que estaba navegando por <strong>HTTPS</strong> en una web, debido a que esta informacion viaja cifrada no podemos ver cual es el contenido a menos que se tenga el certificado del servidor el cual incluye la clave privada.</p>
+
+<p>Pero como no lo tenemos hay que buscar en los paquetes que no estan cifrados, sin ir mas lejos el primer paquete se puede observar en la imagen que contiene un string que llama la atencion&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">696e666f7365635f666c616769735f736e6966666564</code></pre></div>
+<p>Despues de algunas pruebas, me encuentro que es un string con informacion hexadecimal que si lo decodificamos nos encontramos con el flag!</p>
+
+<p><strong>Flag: infosec_flagis_sniffed</strong></p>
+
+<p>Level 7:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">f00 not found
+Something is not right here???
+btw...bounty $70</code></pre></div>
+<p>Eso es lo que nos muestra el reto, pero si vemos la url podemos ver que se esta viendo la URL <strong>404.php</strong>, pero normalmente los retos estan en <strong>level[Numero escrito en ingles].php</strong></p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-2/2015-03-14 17_38_30.jpg" alt="Level-7-Vacio-Blanco" /></p>
+
+<p>No hay nada en esa URL, pero igualmente se puede accesar asi que hay que ver si hay algo escondido. Mirando bien los headers nos encontramos con lo siguiente:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">200 aW5mb3NlY19mbGFnaXNfeW91Zm91bmRpdA==</code></pre></div>
+<p>200 OK es normalmente el status que devuelve una web si todo salio correctamente, y ahi hay un base64 asi que decodificandolo nos encontramos con el flag!</p>
+
+<p><strong>Flag: infosec_flagis_youfoundit</strong></p>
+
+<p>Level 8:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-2/2015-03-14 17_42_49.jpg" alt="Level-8-app-reversing" /></p>
+
+<p>Misma imagen que antes pero distinta descarga: <strong>app.exe</strong>, ahora tenemos un ejecutable con lo que seguramente este reto sea sobre Reverse Engineering, el cual es el proceso de extraer informacion sobre el funcionamiento de algo sin tener informacion sobre el!</p>
+
+<p>Para resolver este reto tenemos dos posibilidades:</p>
+
+<ol>
+<li><p>Utilizamos el comando <strong>string app.exe</strong> en Linux y mirando en la salida encontramos el flag.</p></li>
+
+<li><p>Hacemos uso de <a href="https://www.hex-rays.com/products/ida/" target="_blank">IDA</a> o algun debugger y miramos cuales son los strings que almacena el ejecutable.</p></li>
+</ol>
+
+<p>En mi caso hice uso de Ida ya que crei que iba a ser un poco mas complejo el reto, para resolverlo simplemente iniciamos Ida y cuando haya terminado el analisis veremos lo siguiente:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-2/
+2015-03-14 17_52_15-.jpg" alt="Level-8-app-reversing" /></p>
+
+<p>Lo que ven es el codigo Assembler de <strong>app.exe</strong>, un pequeño programa que a simple vista muestra un mensaje y luego llama al comando <strong>netstat</strong>, si miramos bien encontraremos el flag el cual esta ubicado en la variable <strong>aInfosec_flagis</strong>.</p>
+
+<p><strong>Flag: infosec_flagis_0x1a</strong></p>
+
+<p>Level 9:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-2/2015-03-14 17_57_45.jpg" alt="Level-9-Login" /></p>
+
+<p>En este nivel nos encontramos con un login el cual seguramente si lo pasamos obtendremos el flag, ahora la cuestion es como logearse correctamente.</p>
+
+<p>Lo primero que se me vino a la mente fue utilizar <strong>SQL Injection</strong> asi que coloque una <strong>&lsquo;</strong> en el usuario y la contraseña, pero no tuve ninguna respuesta.</p>
+
+<p>Debido a que es un <strong>CTF</strong> para <strong>&ldquo;noobs&rdquo;</strong> pense que la solucion seria mas sencilla por lo que empeze a comprobar credenciales por defecto, luego de varias pruebas encontre que <strong>root:attack</strong> era la combinacion correcta y me encontre con un alert que decia:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">ssaptluafed_sigalf_cesofni</code></pre></div>
+<p>El cual es el flag pero dado vuelta!</p>
+
+<p><strong>Flag: infosec_flagis_defaultpass</strong></p>
+
+<p>Level 10:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-2/2015-03-14 18_07_02-.jpg" alt="Level-10-Audio" /></p>
+
+<p>Nos encontramos con otra descarga pero esta vez es un audio un tanto extraño, se escucha algo acelerado pero no se puede entender nada.</p>
+
+<p>Aca las posibilidades son 3:</p>
+
+<ol>
+<li><p>Esteganografia en el audio: habria que comprobar el histograma para ver si hay informacion guardada alli, tecnica <strong>LSB</strong>, adjunto de un archivo con algun programa (Steghide).</p></li>
+
+<li><p>Metadatos</p></li>
+
+<li><p>Reducir la velocidad de audio para ver si lo que hicieron fue acelerarlo solamente.</p></li>
+</ol>
+
+<p>Luego de algunas pruebas la posibilidad 3 es la correcta, utilizando <strong>Audacity</strong> hacemos un <strong>&ldquo;Cambio de velocidad&rdquo;</strong> y colocamos <strong>-88.00</strong> como <strong>&ldquo;Porcentaje de cambio&rdquo;</strong>, con eso podremos escuchar el flag, segun lo que puede escuchar es:</p>
+
+<p><strong>Flag: infosec_flagis_sound</strong></p>
+
+<p>Hasta aca la segunda parte, solo queda 1 con los ultimos 5 retos!</p>
+]]></content>
+        </item>
+        
+        <item>
             <title>[ES] CTF InfosecInstitute - Parte 1</title>
             <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-1/</link>
             <pubDate>Sat, 14 Mar 2015 00:00:00 +0000</pubDate>

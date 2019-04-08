@@ -24,6 +24,18 @@ Descripcion: Se ha logrado interceptar dos criptogramas denominados C1 y C2, asi
     </item>
     
     <item>
+      <title>[ES] CTF InfosecInstitute - Parte 2</title>
+      <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-2/</link>
+      <pubDate>Sun, 15 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-2/</guid>
+      <description>Seguimos con los retos del CTF InfosecInstitute, esta vez del 6 al 10.
+Level 6:
+Nos encontramos con un Pcap, una captura de trafico de red asi que vamos a descargarla y ver que hay, utilizamos Wireshark para abrirla y nos encontramos con lo siguiente:
+Demasiadas conexion cifradas TLS, al parecer se hizo una captura de un equipo que estaba navegando por HTTPS en una web, debido a que esta informacion viaja cifrada no podemos ver cual es el contenido a menos que se tenga el certificado del servidor el cual incluye la clave privada.</description>
+    </item>
+    
+    <item>
       <title>[ES] CTF InfosecInstitute - Parte 1</title>
       <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-1/</link>
       <pubDate>Sat, 14 Mar 2015 00:00:00 +0000</pubDate>

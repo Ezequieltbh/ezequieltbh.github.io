@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Infosecinstitute on EzequielTBH Blog&#39;s</title>
+    <link>https://ezequieltbh.me/tags/infosecinstitute/</link>
+    <description>Recent content in Infosecinstitute on EzequielTBH Blog&#39;s</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Sat, 14 Mar 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://ezequieltbh.me/tags/infosecinstitute/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[ES] CTF InfosecInstitute - Parte 1</title>
+      <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-1/</link>
+      <pubDate>Sat, 14 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-1/</guid>
+      <description>El InfosecInstitute esta actualmente hosteando un CTF para &amp;ldquo;Noobs&amp;rdquo; con un bounty de $1200 dolares en total, que se distribuiran diferenciadamente entre los mejores Writeups para cada prueba.
+En mi caso, los CTFs son una buena oportunidad para aprender asi que vamos alla.
+Level 1:
+En este nivel la frase lo dice todo: &amp;ldquo;Que el codigo fuente este con vosotros!&amp;rdquo;, asi que nos vamos a ver el codigo fuente de la web.</description>
+    </item>
+    
+  </channel>
+</rss>

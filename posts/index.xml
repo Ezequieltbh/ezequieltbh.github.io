@@ -62,5 +62,97 @@ M2 =  i  n  g  r  e  s  a  r|     m  a  n  u  e  l   |  f  
 ]]></content>
         </item>
         
+        <item>
+            <title>[ES] CTF InfosecInstitute - Parte 1</title>
+            <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-1/</link>
+            <pubDate>Sat, 14 Mar 2015 00:00:00 +0000</pubDate>
+            
+            <guid>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-1/</guid>
+            <description>El InfosecInstitute esta actualmente hosteando un CTF para &amp;ldquo;Noobs&amp;rdquo; con un bounty de $1200 dolares en total, que se distribuiran diferenciadamente entre los mejores Writeups para cada prueba.
+En mi caso, los CTFs son una buena oportunidad para aprender asi que vamos alla.
+Level 1:
+En este nivel la frase lo dice todo: &amp;ldquo;Que el codigo fuente este con vosotros!&amp;rdquo;, asi que nos vamos a ver el codigo fuente de la web.</description>
+            <content type="html"><![CDATA[<p>El <a href="https://resources.infosecinstitute.com/" target="_blank">InfosecInstitute</a> esta actualmente hosteando un <a href="http://ctf.infosecinstitute.com/" target="_blank">CTF</a> para &ldquo;Noobs&rdquo; con un bounty de $1200 dolares en total, que se distribuiran diferenciadamente entre los mejores Writeups para cada prueba.</p>
+
+<p>En mi caso, los CTFs son una buena oportunidad para aprender asi que vamos alla.</p>
+
+<p>Level 1:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-1/2015-03-14 00_48_30-.jpg" alt="Level-1-Source" /></p>
+
+<p>En este nivel la frase lo dice todo: <strong>&ldquo;Que el codigo fuente este con vosotros!&rdquo;</strong>, asi que nos vamos a ver el codigo fuente de la web. Click derecho -&gt; Ver codigo fuente y en la primera linea nos encontramos con:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">&lt;!-- infosec_flagis_welcome --&gt;</code></pre></div>
+<p>Un comentario de HTML con el Flag!</p>
+
+<p><strong>Flag: infosec_flagis_welcome</strong></p>
+
+<p>Level 2:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-1/2015-03-14 00_57_05-.jpg" alt="Level-2-Base64" /></p>
+
+<p>Nos encontramos con una frase que nos indica que la imagen parece estar &ldquo;rota&rdquo;, y nos dice que si podemos revisar el archivo. Miramos el codigo fuente de la pagina y nos encontramos con lo siguiente:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-HTML" data-lang="HTML">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lvlone&#34;</span>&gt;
+   &lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;img/leveltwo.jpeg&#34;</span> /&gt; </code></pre></div>
+<p>Por lo que la imagen que buscamos esta en <strong>/img/leveltwo.jpeg</strong>, una vez guardada podemos ver que su contenido es:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">aW5mb3NlY19mbGFnaXNfd2VhcmVqdXN0c3RhcnRpbmc=</code></pre></div>
+<p>Por el <strong>=</strong> del final uno se da cuenta rapidamente que se trata de Base64 un algoritmo de codificacion de texto muy utilizado especialemente en SMTP para envio de adjuntos y enviar la password.</p>
+
+<p>Decodificandolo obtenemos el flag</p>
+
+<p><strong><em>Flag: infosec_flagis_wearejuststarting</em></strong></p>
+
+<p>Level 3:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-1/2015-03-14 03_54_41.jpg" alt="Level-3-Qrcode" /></p>
+
+<p>En este nivel nos encontramos directamente con un <a href="https://es.wikipedia.org/wiki/C%C3%B3digo_QR" target="_blank">Qr Code</a>, el mismo es una imagen que es capaz de guardar informacion tanto texto como binario, podemos utilizar herramientas online o software para decodificar esa informacion.</p>
+
+<p>En mi caso utilize la herramienta online <a href="http://zxing.org/" target="_blank">http://zxing.org/</a> y obtuve lo siguiente</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">.. -. ..-. --- ... . -.-. ..-. .-.. .- --. .. ... -- --- .-. ... .. -. --.</code></pre></div>
+<p>Esto a simple vista uno puede reconocer que es codigo morse : cortos ( . ) y largos ( - ) repitiendose, decodificandolo con la herramienta <a href="https://morsecode.scphillips.com/translator.html" target="_blank">MorseCode</a> se obtiene el flag.</p>
+
+<p><strong>Flag: INFOSECFLAGISMORSING</strong></p>
+
+<p>Level 4:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-1/2015-03-14 04_06_12.jpg" alt="Level-4-Cookies" /></p>
+
+<p>La frase lo dice todo: <strong>&ldquo;HTTP significa Hypertext Transfer Protocol&rdquo;</strong>, por lo que debemos buscar en algun elemento de HTTP, lo primero que se me viene a la mente son las cookies, si miramos las cookies nos encontramos con que hay una cookie de sesion llamada fusdorah cuyo contenido es</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">vasbfrp_syntvf_jrybirpbbxvrf</code></pre></div>
+<p>Despues de algunas pruebas concluyo que esta codificado en <a href="https://es.wikipedia.org/wiki/Cifrado_C%C3%A9sar" target="_blank">Cesar</a>, un algoritmo de codificacion por desplazamiento, con la herramienta online <a href="https://www.dcode.fr/chiffre-cesar" target="_blank">Chiffre de Cesar</a> lo decodificamos y obtenemos el flag!</p>
+
+<p><strong><em>Flag: INFOSECFLAGISWELOVECOOKIES</em></strong></p>
+
+<p>Level 5 :</p>
+
+<p>Al entrar en el reto nos encontramos con un loop infinito de un <strong>alert(&ldquo;Hacker&rdquo;);</strong> para seguir necesitamos pararlo asi que si usamos Firefox hacemos click en <strong>&ldquo;Evitar que esta pagina cree dialogos adicionales&rdquo;</strong> o si usamos otro navegador podes deshabilitar javascript antes de entrar.</p>
+
+<p>Una vez entramos, nos encontramos con lo siguiente:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-1/2015-03-14 04_15_01.jpg" alt="Level-5-Esteganografia" /></p>
+
+<p>Revisando el codigo fuente no encontramos nada&hellip; la imagen a simple vista no contiene nada oculto, si la revisamos con un editor hexadecimal no encontramos nada tampoco&hellip; Ok esto es esteganografia seguro&hellip;</p>
+
+<p>Debido a que la imagen es jpeg descartamos LSB debido a la compresion que realiza el algoritmo, no hay un canal Alpha donde guardar pixeles que pueda guardar informacion asi que descartado tambien.</p>
+
+<p>Una busqueda por google nos permite encontrar la <a href="https://ten4word.files.wordpress.com/2014/12/history-channel-meme-humans-i18.jpg" target="_blank">Imagen original</a> y podemos ver que la imagen en el reto tiene mayor peso, entonces se utilizo alguna herramienta para cifrar la informacion y guardarla dentro de la imagen.</p>
+
+<p>Luego de algunas pruebas steghide es la herramienta que utilizaron</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">steghide extract -sf aliens.jpg
+Password: </code></pre></div>
+<p>Si, no hay password!</p>
+
+<p>Se extrae un archivo llamado All.txt el cual contiene:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">011010010110111001100110011011110111001101100101011000110101111
+10110011001101100011000010110011101101001011100110101111101110011
+011101000110010101100111011000010110110001101001011001010110111001110011</code></pre></div>
+<p>Binario&hellip; Si lo <a href="https://www.elhacker.net/convertidor.html" target="_blank">decodificamos</a> obtenemos la flag!</p>
+
+<p><strong><em>Flag: infosec_flagis_stegaliens</em></strong></p>
+
+<p>Y hasta aca los primeros 5 retos de este CTF, por el momento sencillos pero mas adelante se complica un poco mas.</p>
+]]></content>
+        </item>
+        
     </channel>
 </rss>

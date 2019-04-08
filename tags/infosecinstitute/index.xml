@@ -6,10 +6,22 @@
     <description>Recent content in Infosecinstitute on EzequielTBH Blog&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Sun, 15 Mar 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 16 Mar 2015 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://ezequieltbh.me/tags/infosecinstitute/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[ES] CTF InfosecInstitute - Parte 3</title>
+      <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-3/</link>
+      <pubDate>Mon, 16 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-3/</guid>
+      <description>Ultimo post sobre el CTF de InfosecInstitute, esta vez con retos mas complicados&amp;hellip;
+Level 11:
+Al entrar en el reto nos encontramos con una imagen que nos indica que hay otro sonido de nuevo, pero mas abajo podemos ver que no hay ningun sonido sino una imagen del logo de php.
+Debido a que en el reto anterior estaba esa imagen lol.gif, descargo php-logo-virus.jpg ya que me parece sospechosa y ejecutando:</description>
+    </item>
     
     <item>
       <title>[ES] CTF InfosecInstitute - Parte 2</title>

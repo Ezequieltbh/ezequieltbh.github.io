@@ -63,6 +63,126 @@ M2 =  i  n  g  r  e  s  a  r|     m  a  n  u  e  l   |  f  
         </item>
         
         <item>
+            <title>[ES] CTF InfosecInstitute - Parte 3</title>
+            <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-3/</link>
+            <pubDate>Mon, 16 Mar 2015 00:00:00 +0000</pubDate>
+            
+            <guid>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-3/</guid>
+            <description>Ultimo post sobre el CTF de InfosecInstitute, esta vez con retos mas complicados&amp;hellip;
+Level 11:
+Al entrar en el reto nos encontramos con una imagen que nos indica que hay otro sonido de nuevo, pero mas abajo podemos ver que no hay ningun sonido sino una imagen del logo de php.
+Debido a que en el reto anterior estaba esa imagen lol.gif, descargo php-logo-virus.jpg ya que me parece sospechosa y ejecutando:</description>
+            <content type="html"><![CDATA[<p>Ultimo post sobre el <strong>CTF</strong> de <strong>InfosecInstitute</strong>, esta vez con retos mas complicados&hellip;</p>
+
+<p>Level 11:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-3/2015-03-15 15_56_15-.jpg" alt="Level-11-10" /></p>
+
+<p>Al entrar en el reto nos encontramos con una imagen que nos indica que hay otro sonido de nuevo, pero mas abajo podemos ver que no hay ningun sonido sino una imagen del logo de php.</p>
+
+<p>Debido a que en el reto anterior estaba esa imagen <strong>lol.gif</strong>, descargo <strong>php-logo-virus.jpg</strong> ya que me parece sospechosa y ejecutando:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">strings php-logo-virus.jpg</code></pre></div>
+<p>Me encuentro con:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">infosec_flagis_aHR0cDovL3d3dy5yb2xsZXJza2kuY28udWsvaW1hZ2VzYi9wb3dlcnNsaWRlX2xvZ29fbGFyZ2UuZ2lm</code></pre></div>
+<p>Parece ser el flag, pero en realidad la ultima parte esta codificada en <strong>base 64</strong>, el no tener el <strong>&rdquo;=&rdquo;</strong> o <strong>&rdquo;==&rdquo;</strong> no significa que no sea <strong>base 64</strong> ya que el mismo se utiliza como <a href="https://en.wikipedia.org/wiki/Base64#Padding" target="_blank">padding</a> y no siempre es necesario.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">http://www.rollerski.co.uk/imagesb/powerslide_logo_large.gif</code></pre></div>
+<p>Si vemos la imagen podemos encontrar la palabra powerslide que es la ultima parte de nuestro flag!</p>
+
+<p><strong>Flag: infosec_flagis_powerslide</strong></p>
+
+<p>Level 12:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-3/2015-03-15 16_16_34.jpg" alt="Level-12-Css" /></p>
+
+<p>Misma imagen que el reto 1 por lo que no encontraremos nada ahi, asi que hay que buscar en el codigo fuente de la web. Luego de un poco de busqueda nos encontramos con:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-HTML" data-lang="HTML">&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;css/custom.css&#34;</span>&gt;</code></pre></div>
+<p>Eso no es un color me parece, pero si es hexadecimal!</p>
+
+<p><strong>Flag: infosec_flagis_heyimnotacolor</strong></p>
+
+<p>Level 13:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-3/2015-03-15 16_22_43-.jpg" alt="Level-13-Reto-Perdido" /></p>
+
+<p>Parece que el admin perdio el reto :p, nuestro objetivo es buscarlo asi que luego de probar algunas combinaciones comunes de nombres, la buena es:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">http://ctf.infosecinstitute.com/levelthirteen.php.old</code></pre></div>
+<p>Si miramos el codigo fuente de esta nueva pagina veremos:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-HTML" data-lang="HTML">&lt;<span style="color:#f92672">p</span>&gt;Do you want to download this mysterious file?&lt;/<span style="color:#f92672">p</span>&gt;
+ 
+   &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;misc/imadecoy&#34;</span>&gt;
+     &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;btn&#34;</span>&gt;Yes&lt;/<span style="color:#f92672">button</span>&gt;
+   &lt;/<span style="color:#f92672">a</span>&gt;</code></pre></div>
+<p>Por lo que descargamos ese archivo <strong>imadecoy</strong> y mirandolo con un editor hexadecimal podemos ver que sus primeros tres bytes son <a href="http://www.filesignatures.net/index.php?page=search&amp;search=D4C3B2A1&amp;mode=SIG" target="_blank">d4 c3 b2</a>, los cuales son los bytes iniciales de un <strong>Pcap</strong> (Otra captura de red si).</p>
+
+<p>Utilizando <strong>Wireshark</strong> para abrirlo se puede ver que hay varias conexiones <strong>HTTP</strong>, por lo que directamente vamos a <strong>&ldquo;Export Objects -&gt; HTTP&rdquo;</strong> y vemos todo lo que <strong>Wireshark</strong> pudo identificar en la captura.</p>
+
+<p>Al parecer utilizaron <strong>&ldquo;Simple Vulnerable App&rdquo;</strong> desarrollado por <strong>&ldquo;Jay Turla, @shipcod3&rdquo;</strong> para realizar este reto, entre todos los objetos vemos uno llamado <strong>HoneyPY.PNG</strong> que contiene nuestro flag!</p>
+
+<p><strong>Flag: infosec_flagis_morepackets</strong></p>
+
+<p>Level 14:</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-3/2015-03-15 16_41_22-.jpg" alt="Level-14-SQL-Dump" /></p>
+
+<p>Tenemos otro archivo para descargar y en la primera linea ya nos damos cuenta de que va este reto, tenemos una base de datos <strong>SQL</strong> que fue dumpeada.</p>
+
+<p>Al parecer esa base de datos contenia una instalacion de <strong>Wordpress</strong> por lo que en principio uno piensa que el flag puede llegar a estar en algun hash de alguna contraseña, pero eso requeriria de bastante tiempo para crackearlo.</p>
+
+<p>Descartado los hashes nos ponemos a buscar informacion que resulte sospechosa y buscando un poco nos encontramos con:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">--
+-- Dumping data for table `friends`
+--
+ 
+INSERT INTO `friends` (`id`, `name`, `address`, `status`) VALUES
+(102, &#39;Sasha Grey&#39;, &#39;Vatican City&#39;, &#39;Active&#39;),
+(101, &#39;Andres Bonifacio&#39;, &#39;Tondo, Manila&#39;, &#39;Active&#39;),
+(103, &#39;lol&#39;, &#39;what the???&#39;, &#39;Inactive&#39;),
+(104, &#39;\\u0069\\u006e\\u0066\\u006f\\u0073\\u0065\\u0063\\u005f\\u0066\\u006c\\u0061\\u0067\\u0069\\u0073\\u005f\\u0077\\u0068\\u0061\\u0074\\u0073\\u006f\\u0072\\u0063\\u0065\\u0072\\u0079\\u0069\\u0073\\u0074\\u0068\\u0069\\u0073&#39;, &#39;annoying&#39;, &#39;0x0a&#39;);</code></pre></div>
+<p>En el registro con <strong>id 104</strong> podemos ver que su &ldquo;nombre&rdquo; es un string en unicode ( \u te permite identificar unicode claramente), decodificandolo nos encontramos con el flag!</p>
+
+<p><strong>Flag: infosec_flagis_whatsorceryisthis</strong></p>
+
+<p>Level 15:</p>
+
+<p>Ultimo y mas complicado reto.</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-3/2015-03-15 16_55_12.jpg" alt="Level-15-Command-Injection" /></p>
+
+<p>Como podemos ver lo que tenemos es un campo que nos permite ingresar texto sin restricciones y que luego es procesado por el servidor usando <strong>PHP</strong> para ejecutar en el sistema el comando <strong>dig</strong> mas lo que nosotros hayamos ingresado en ese campo, claro ejemplo de <strong>Command Injection</strong>.</p>
+
+<p>Para explotar este fallo simplemente en el campo escribimos</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">google.com;ls -lah</code></pre></div>
+<p>Con esto la salida que nos va a devolver va a ser la de <strong>&ldquo;dig google.com&rdquo;</strong> y ademas la salida del comando <strong>&ldquo;ls -lah&rdquo;</strong> ya que el <strong>&rdquo;;&rdquo;</strong> en sistemas <strong>GNU/Linux</strong> funciona como indicador de que viene otro comando que debera ser ejecutado.</p>
+
+<p><img src="/images/posts/ctf-infosecinstitute-3/2015-03-15 17_02_13.jpg" alt="Level-15-Command-Injection-Exploit" /></p>
+
+<p>Como se puede ver en la imagen en el mismo directorio hay un archivo <strong>.hey</strong> el cual contiene</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">Miux+mT6Kkcx+IhyMjTFnxT6KjAa+i6ZLibC</code></pre></div>
+<p>Al parecer tenemos un texto codificado, intentando con varios cifrados encontramos el correcto: <a href="http://k4.cba.pl/dw/crypo/tools/eng_atom128c.html" target="_blank">ATOM-128</a></p>
+
+<p><strong>Flag: infosec_flagis_rceatomized</strong></p>
+
+<p>Bonus:</p>
+
+<p>En el reto 15 como vemos hay un <strong>Command Injection</strong> que permite ejecutar comandos en el sistema operativo directamente, en competencias <strong>CTFs</strong> como esta normalmente estos retos estan muy controlados y limitados los comandos que uno puede ejecutar pero esto no es asi en este <strong>CTF</strong>.</p>
+
+<p>He reportado este fallo con 2 emails a los organizadores pero hasta este momento no he tenido respuesta, asi que decidi publicarlo aca.</p>
+
+<p>El fallo consiste en que no se limitan los comandos posibles a ejecutar por lo que uno puede hacer&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">google.com;uname -a</code></pre></div>
+<p>Y obtener&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">Linux ip-1XX-3X-3X-XX 3.13.0-44-generic #73-Ubuntu SMP Tue Dec 16 XX:XX:XX UTC 2014 x86_64 x86_64 x86_64 GNU/Linux</code></pre></div>
+<p>Y asi con otros comandos como <strong>cat /etc/passwd</strong>, id y cualquiera que pueda ser ejecutado con los privilegios de <strong>&ldquo;www-data&rdquo;</strong>.</p>
+
+<p>Espero que los organizadores arreglen esto lo mas rapido posible.</p>
+
+<p>Editado: He recibido respuesta por parte del organizador <strong>Ryan Fahey</strong>, indicando que aprecia mi nota sobre el nivel 15. Aun asi el fallo sigue sin ser arreglado hasta el dia de la fecha <strong>16/03/2015</strong>.</p>
+
+<p>Este es el fin de mi Write-Up del <strong>CTF</strong> de <strong>InfosecInstitute</strong>.</p>
+]]></content>
+        </item>
+        
+        <item>
             <title>[ES] CTF InfosecInstitute - Parte 2</title>
             <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-2/</link>
             <pubDate>Sun, 15 Mar 2015 00:00:00 +0000</pubDate>

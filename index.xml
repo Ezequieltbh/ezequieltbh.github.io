@@ -6,9 +6,70 @@
     <description>Recent content on EzequielTBH Blog&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Sun, 07 Apr 2019 01:18:57 -0300</lastBuildDate>
     
 	<atom:link href="https://ezequieltbh.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>About</title>
+      <link>https://ezequieltbh.me/about/</link>
+      <pubDate>Sun, 07 Apr 2019 01:18:57 -0300</pubDate>
+      
+      <guid>https://ezequieltbh.me/about/</guid>
+      <description>My name is Ezequiel, but you already know that because of my nick :)
+Here I’m going to publish every research that I do in my free time about information security, especially offensive security.
+What do you do? I am a Security Researcher, my everyday job is looking for security bugs in applications and networks.
+For a few years, I also worked as a Full Stack developer, so the Code is my friend too.</description>
+    </item>
+    
+    <item>
+      <title>[ES] Cybercamp 2015 CTF: Criptografia challenge</title>
+      <link>https://ezequieltbh.me/posts/2015/08/es-cybercamp-2015-ctf-criptografia-challenge/</link>
+      <pubDate>Wed, 05 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/posts/2015/08/es-cybercamp-2015-ctf-criptografia-challenge/</guid>
+      <description>El dia 17 de julio inicio el CTF 2015 de Cybercamp, el mismo era del estilo jeopardy y constaba de retos de criptografia, forensica, exploiting, web y reversing.
+En mi caso termine en el puesto 44, tan solo a 4 de clasificar, una lastima no tener mas tiempo para dedicarlo a los retos.
+Empezamos con uno de criptografia!
+Descripcion: Se ha logrado interceptar dos criptogramas denominados C1 y C2, asi como sus correspondientes textos planos M1 y M2.</description>
+    </item>
+    
+    <item>
+      <title>[ES] CTF InfosecInstitute - Parte 3</title>
+      <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-3/</link>
+      <pubDate>Mon, 16 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-3/</guid>
+      <description>Ultimo post sobre el CTF de InfosecInstitute, esta vez con retos mas complicados&amp;hellip;
+Level 11:
+Al entrar en el reto nos encontramos con una imagen que nos indica que hay otro sonido de nuevo, pero mas abajo podemos ver que no hay ningun sonido sino una imagen del logo de php.
+Debido a que en el reto anterior estaba esa imagen lol.gif, descargo php-logo-virus.jpg ya que me parece sospechosa y ejecutando:</description>
+    </item>
+    
+    <item>
+      <title>[ES] CTF InfosecInstitute - Parte 2</title>
+      <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-2/</link>
+      <pubDate>Sun, 15 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-2/</guid>
+      <description>Seguimos con los retos del CTF InfosecInstitute, esta vez del 6 al 10.
+Level 6:
+Nos encontramos con un Pcap, una captura de trafico de red asi que vamos a descargarla y ver que hay, utilizamos Wireshark para abrirla y nos encontramos con lo siguiente:
+Demasiadas conexion cifradas TLS, al parecer se hizo una captura de un equipo que estaba navegando por HTTPS en una web, debido a que esta informacion viaja cifrada no podemos ver cual es el contenido a menos que se tenga el certificado del servidor el cual incluye la clave privada.</description>
+    </item>
+    
+    <item>
+      <title>[ES] CTF InfosecInstitute - Parte 1</title>
+      <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-1/</link>
+      <pubDate>Sat, 14 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-1/</guid>
+      <description>El InfosecInstitute esta actualmente hosteando un CTF para &amp;ldquo;Noobs&amp;rdquo; con un bounty de $1200 dolares en total, que se distribuiran diferenciadamente entre los mejores Writeups para cada prueba.
+En mi caso, los CTFs son una buena oportunidad para aprender asi que vamos alla.
+Level 1:
+En este nivel la frase lo dice todo: &amp;ldquo;Que el codigo fuente este con vosotros!&amp;rdquo;, asi que nos vamos a ver el codigo fuente de la web.</description>
+    </item>
     
   </channel>
 </rss>

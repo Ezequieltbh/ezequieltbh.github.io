@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Eset on EzequielTBH Blog&#39;s</title>
+    <link>https://ezequieltbh.me/tags/eset/</link>
+    <description>Recent content in Eset on EzequielTBH Blog&#39;s</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <copyright>All rights reserved.</copyright>
+    <lastBuildDate>Fri, 20 Mar 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://ezequieltbh.me/tags/eset/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[ES] Desafío ESET 29: Write Up</title>
+      <link>https://ezequieltbh.me/posts/2015/03/es-desaf%C3%ADo-eset-29-write-up/</link>
+      <pubDate>Fri, 20 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/posts/2015/03/es-desaf%C3%ADo-eset-29-write-up/</guid>
+      <description>WeLiveSecurity es un blog sobre seguridad informatica administrado por la comunidad de analistas de seguridad que trabajan para ESET, si el famoso antivirus!
+Cada cierto tiempo en este blog presentan retos en los que cualquiera puede participar, divertirse un rato, aprender y ganar algun premio. Hoy presentaron el reto 29 el cual se basa en buscar un flag.
+Entramos al post del blog y nos encontramos con un Zip para descargar, pero nos avisan que el mismo tiene una contraseña la cual podemos encontrar si es que logramos resolver el problema en la siguiente imagen:</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -36,6 +36,17 @@ Descripcion: Se ha logrado interceptar dos criptogramas denominados C1 y C2, asi
     </item>
     
     <item>
+      <title>[ES] Desafío ESET 29: Write Up</title>
+      <link>https://ezequieltbh.me/posts/2015/03/es-desaf%C3%ADo-eset-29-write-up/</link>
+      <pubDate>Fri, 20 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/posts/2015/03/es-desaf%C3%ADo-eset-29-write-up/</guid>
+      <description>WeLiveSecurity es un blog sobre seguridad informatica administrado por la comunidad de analistas de seguridad que trabajan para ESET, si el famoso antivirus!
+Cada cierto tiempo en este blog presentan retos en los que cualquiera puede participar, divertirse un rato, aprender y ganar algun premio. Hoy presentaron el reto 29 el cual se basa en buscar un flag.
+Entramos al post del blog y nos encontramos con un Zip para descargar, pero nos avisan que el mismo tiene una contraseña la cual podemos encontrar si es que logramos resolver el problema en la siguiente imagen:</description>
+    </item>
+    
+    <item>
       <title>[ES] CTF InfosecInstitute - Parte 3</title>
       <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-3/</link>
       <pubDate>Mon, 16 Mar 2015 00:00:00 +0000</pubDate>

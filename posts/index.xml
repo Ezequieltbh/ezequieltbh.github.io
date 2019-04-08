@@ -63,6 +63,81 @@ M2 =  i  n  g  r  e  s  a  r|     m  a  n  u  e  l   |  f  
         </item>
         
         <item>
+            <title>[ES] Desafío ESET 29: Write Up</title>
+            <link>https://ezequieltbh.me/posts/2015/03/es-desaf%C3%ADo-eset-29-write-up/</link>
+            <pubDate>Fri, 20 Mar 2015 00:00:00 +0000</pubDate>
+            
+            <guid>https://ezequieltbh.me/posts/2015/03/es-desaf%C3%ADo-eset-29-write-up/</guid>
+            <description>WeLiveSecurity es un blog sobre seguridad informatica administrado por la comunidad de analistas de seguridad que trabajan para ESET, si el famoso antivirus!
+Cada cierto tiempo en este blog presentan retos en los que cualquiera puede participar, divertirse un rato, aprender y ganar algun premio. Hoy presentaron el reto 29 el cual se basa en buscar un flag.
+Entramos al post del blog y nos encontramos con un Zip para descargar, pero nos avisan que el mismo tiene una contraseña la cual podemos encontrar si es que logramos resolver el problema en la siguiente imagen:</description>
+            <content type="html"><![CDATA[<p><a href="http://www.welivesecurity.com/" target="_blank">WeLiveSecurity</a> es un blog sobre seguridad informatica administrado por la comunidad de analistas de seguridad que trabajan para ESET, si el famoso antivirus!</p>
+
+<p>Cada cierto tiempo en este blog presentan retos en los que cualquiera puede participar, divertirse un rato, aprender y ganar algun premio. Hoy presentaron el reto 29 el cual se basa en buscar un flag.</p>
+
+<p>Entramos al <a href="https://www.welivesecurity.com/la-es/2015/03/20/desafio-eset-29-encuentra-accion-maliciosa/" target="_blank">post</a> del blog y nos encontramos con un <a href="http://www.welivesecurity.com/wp-content/uploads/2015/03/Desafio_-_29.zip" target="_blank">Zip</a> para descargar, pero nos avisan que el mismo tiene una contraseña la cual podemos encontrar si es que logramos resolver el problema en la siguiente imagen:</p>
+
+<p><img src="/images/posts/desafio-eset-29/CodigoQR2.png" alt="Codigo-Qr" /></p>
+
+<p>Tenemos una imagen QR, asi que volvemos a utilizar nuestra herramienta online para decodificar su contenido y nos encontramos con:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">RG9Nb3Jl==</code></pre></div>
+<p>Debido a los dos signos <strong>&rdquo;=&rdquo;</strong> del final, nos damos cuenta rapidamente que se trata de un string en <strong>base 64</strong>, decodificandolo terminamos obteniendo la clave:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">DoMore</code></pre></div>
+<p>En este punto tenemos una carpeta llamada <strong>&ldquo;Desafio_-_29&rdquo;</strong> la cual contiene un archivo llamado <strong>&ldquo;Desafio__29.exe&rdquo;</strong> asi que vamos a investigar un poco ese ejecutable.</p>
+
+<p>El primer paso es extraer todos los strings que este contiene por lo que utilizando la herramienta <strong>&ldquo;strings.exe&rdquo;</strong> de <strong>SysInternals</strong> terminamos obteniendo entre otras cosas</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">8fda2e04=&#34;Archivo auto-extraible WinRAR&#34;</code></pre></div>
+<p>Ok al parecer tenemos un ejecutable que en realidad es un un archivo <strong>SFX</strong> generado con <strong>WinRAR</strong>, el siguiente paso es abrirlo y ver cuales son sus ordenes de extraccion junto con su contenido.</p>
+
+<p><img src="/images/posts/desafio-eset-29/2015-03-20 18_25_28-Desafio__29.exe.jpg" alt="File-And-Comment" /></p>
+
+<p>Adentro de este <strong>SFX</strong> tenemos un archivo sin extension y un comentario que indica que se realizara la extraccion silenciosamente <strong>(Silent = 1)</strong> por lo que no veremos ninguna ventana al momento de realizarse la descompresion, tambien vemos que la ruta donde se hara la misma es en <strong>&ldquo;C:\WINDOWS\Temp&rdquo;</strong>.</p>
+
+<p>Ahora podemos ejecutar el exe con seguridad de que no se nos paso nada, y buscar ese archivo <strong>&ldquo;Desafio__29&rdquo;</strong> para identificar su contenido gracias a sus primeros bytes, los cuales son:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">d0 cf 11</code></pre></div>
+<p>Un poco de Google y nos encontramos con la respuesta: <strong>Microsoft Office Document</strong>.</p>
+
+<p>Renombramos el archivo a <strong>&ldquo;Desafio__29.doc&rdquo;</strong> por probar y acertamos&hellip;</p>
+
+<p><img src="/images/posts/desafio-eset-29/2015-03-20 18_40_56-Desafio__29.doc [Modo de compatibilidad] - Word.jpg" alt="Altas-Cartas" /></p>
+
+<p>A simple vista no hay ningun flag, pero ahora mismo tenemos un archivo <strong>Word</strong> y un reto de una compania de anti malware, donde uno puede guardar malware en un archivo de <strong>Office</strong>?&hellip;</p>
+
+<p>En los Macros!!</p>
+
+<p><img src="/images/posts/desafio-eset-29/2015-03-20 18_45_41-Microsoft Visual Basic para Aplicaciones - Desafio__29 .jpg" alt="Visual-Basic-Macro" /></p>
+
+<p>Vamos a analizar un poco este codigo:</p>
+
+<p>En el principio (el cual no esta en la imagen), podemos observar como se declaran las funciones <strong>&ldquo;CreateThread&rdquo;</strong>, <strong>&ldquo;VirtualAlloc&rdquo;</strong>, <strong>&ldquo;RtlMoveMemory&rdquo;</strong> lo cual nos hace sospechar de que en algun lugar hay codigo ejecutable que sera cargado en memoria gracias al uso de estas funciones anteriormente mencionadas.</p>
+
+<p>Si nos vamos al final del codigo podemos ver <strong>&ldquo;Workbook_Open()&rdquo;</strong>, este es un evento que se ejecuta al iniciar el documento siempre y cuando los macros esten activados, el mismo como se puede observar llama a la funcion <strong>Auto_Open</strong>.</p>
+
+<p>Analizando <strong>Auto_Open</strong>:</p>
+
+<ul>
+<li><p><strong>&ldquo;Array&rdquo;</strong> guarda el codigo ejecutable, codificado en decimal, que sospechabamos que habia.</p></li>
+
+<li><p><strong>VirtualAlloc</strong> reserva memoria con el tamaño justo (gracias a <strong>UBound</strong>) para almacenar el <strong>Array</strong>.</p></li>
+
+<li><p><strong>RtlMoveMemory</strong> realiza movimientos de memoria para colocar la shellcode en memoria de manera correcta, toma como destino a <strong>&ldquo;Ffhzpyadi + Spcwl&rdquo;</strong> y como origen a <strong>Xosacrosk</strong>, siempre realizando movimientos de 1 byte. Por lo que tenemos basicamente en este bucle, un decoder!</p></li>
+
+<li><p><strong>CreateThread</strong> crea un nuevo hilo de ejecucion ejecutando ese codigo.</p></li>
+</ul>
+
+<p>En este punto convencido de que el flag debe estar en ese shellcode, lo que voy a hacer es cargar en memoria ese shellcode y localizarlo a traves de <strong>&ldquo;Ffhzpyadi&rdquo;</strong>.</p>
+
+<p>Para esto agrego un punto de inspeccion a la variable <strong>&ldquo;Ffhzpyadi&rdquo;</strong> y ejecuto el codigo hasta la linea de <strong>CreateThread</strong>. Ahora mismo el shellcode deberia estar ya en memoria y para ubicarlo miro el valor de la variable <strong>&ldquo;Ffhzpyadi&rdquo;</strong> el cual es <strong>&ldquo;193003520&rdquo;</strong>, pasando a hexadecimal obtenemos <strong>&ldquo;0xb810000&rdquo;</strong>.</p>
+
+<p>Abrimos <strong>Inmunity Debugger</strong> y nos vamos a ver la direccion de memoria que obtuvimos antes, al final de todo nos encontramos con el <strong>FLAG!</strong></p>
+
+<p><strong>Flag_is_EnjoySaferTechnology</strong></p>
+
+<p>Y hasta aca llega el reto!</p>
+]]></content>
+        </item>
+        
+        <item>
             <title>[ES] CTF InfosecInstitute - Parte 3</title>
             <link>https://ezequieltbh.me/posts/2015/03/es-ctf-infosecinstitute-parte-3/</link>
             <pubDate>Mon, 16 Mar 2015 00:00:00 +0000</pubDate>

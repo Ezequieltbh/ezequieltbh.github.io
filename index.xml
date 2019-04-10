@@ -24,6 +24,17 @@ For a few years, I also worked as a Full Stack developer, so the Code is my frie
     </item>
     
     <item>
+      <title>Nsa Shadowbrokers leak: analyzing EPICHERO</title>
+      <link>https://ezequieltbh.me/posts/2017/05/nsa-shadowbrokers-leak-analyzing-epichero/</link>
+      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/posts/2017/05/nsa-shadowbrokers-leak-analyzing-epichero/</guid>
+      <description>On April 8th, 2017, a moderately well-known group known as ShadownBrokers released a password to decipher the file known as EQGRP-Auction-Files posted in medium.com.
+A few hours later the Infosec community on social media (Twitter, Reddit, etc) was busy analyzing the leak.
+This article is about the reverse engineering of the exploit found in the leak and to be a bit more specific about the exploit known as EPICHERO.</description>
+    </item>
+    
+    <item>
       <title>[ES] Cybercamp 2015 CTF: Criptografia challenge</title>
       <link>https://ezequieltbh.me/posts/2015/08/es-cybercamp-2015-ctf-criptografia-challenge/</link>
       <pubDate>Wed, 05 Aug 2015 00:00:00 +0000</pubDate>

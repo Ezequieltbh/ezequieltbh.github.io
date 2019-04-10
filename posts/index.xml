@@ -6,8 +6,240 @@
         <description>Recent content in Posts on EzequielTBH Blog&#39;s</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>All rights reserved.</copyright>
-        <lastBuildDate>Wed, 05 Aug 2015 00:00:00 +0000</lastBuildDate>
+        <lastBuildDate>Wed, 03 May 2017 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://ezequieltbh.me/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Nsa Shadowbrokers leak: analyzing EPICHERO</title>
+            <link>https://ezequieltbh.me/posts/2017/05/nsa-shadowbrokers-leak-analyzing-epichero/</link>
+            <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+            
+            <guid>https://ezequieltbh.me/posts/2017/05/nsa-shadowbrokers-leak-analyzing-epichero/</guid>
+            <description>On April 8th, 2017, a moderately well-known group known as ShadownBrokers released a password to decipher the file known as EQGRP-Auction-Files posted in medium.com.
+A few hours later the Infosec community on social media (Twitter, Reddit, etc) was busy analyzing the leak.
+This article is about the reverse engineering of the exploit found in the leak and to be a bit more specific about the exploit known as EPICHERO.</description>
+            <content type="html"><![CDATA[
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/logo.jpg" alt="Logo" /></p>
+
+<p>On April 8th, 2017, a moderately well-known group known as ShadownBrokers released a password to decipher the file known as <strong>EQGRP-Auction-Files</strong> posted in <a href="https://medium.com/@shadowbrokerss/dont-forget-your-base-867d304a94b1" target="_blank">medium.com</a>.</p>
+
+<p>A few hours later the Infosec community on social media (Twitter, Reddit, etc) was busy analyzing the leak.</p>
+
+<p>This article is about the reverse engineering of the exploit found in the leak and to be a bit more specific about the exploit known as <a href="https://github.com/x0rz/EQGRP/tree/33810162273edda807363237ef7e7c5ece3e4100/Linux/bin/epichero" target="_blank">EPICHERO</a>.</p>
+
+<p><strong>EPICHERO</strong> is a <strong>RCE</strong> (zero-day) with <strong>ROOT</strong> privileges in <strong>Avaya Communication Manager</strong>. The vulnerability resides in the CGI <strong>/auth-cgi-bin/distUpgReq</strong> whose <strong>POST licfile</strong> parameter is vulnerable to <strong>Command Injection</strong>.</p>
+
+<h2 id="vulnerable-product">Vulnerable Product</h2>
+
+<p><strong>EPICHERO</strong>, according to the <a href="https://github.com/x0rz/EQGRP/blob/33810162273edda807363237ef7e7c5ece3e4100/Linux/doc/user.tool.epichero.COMMON" target="_blank">documentation</a> found in the leak is a zero day (at the moment there isn&rsquo;t a public CVE that references the bug), RCE with privileges of <strong>ROOT</strong> in <strong>Avaya call server</strong> for the version <a href="https://support.avaya.com/products/P0292/s8710-server" target="_blank">S8710-013-00.0.340.3</a>.</p>
+
+<p>&lsquo;Avaya call server&rsquo; is a generic name, which according to the <a href="https://downloads.avaya.com/css/P8/documents/100017348" target="_blank">documentation</a> (Page 7, Paragraph 1.1) refers to its <a href="https://support.avaya.com/products/P0001/avaya-aura-communication-manager/6.0.x" target="_blank">hardware Appliance</a>, that runs the software Avaya Communication Manager.<br />
+Because of this it was impossible to try it in order to really verify that the exploit is functional and to specify all the vulnerable versions.</p>
+
+<p>The impact of the vulnerability beyond being a code execution is more than remarkable, the S8710 server is a commercial server for routing voice, data and video.<br />
+Because of this, compromising this server could sniff the routed traffic and as a consequence, record SIP calls, redirect them or exploit any known techniques against a SIP server.</p>
+
+<p>Beyond that, given the large scope of the leak and his source (NSA) it is posible that we&rsquo;re a little ahead of an exploit that is fully operational.</p>
+
+<h2 id="first-look">First Look</h2>
+
+<p>A quick look at the exploit using <strong>&lsquo;file&rsquo;</strong> gives us the following information:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">eh.1.1.0.0: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 2.2.5, not stripped</code></pre></div>
+<p>It is a ELF binary which wasn&rsquo;t stripped. This made it quite a bit easier to do reversing on it to maintain names of functions and global variables!.</p>
+
+<p>Using <strong>&lsquo;strings&rsquo;</strong>, we get to two pretty interesting strings&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">GCC: (GNU) 3.2 20020903 (Red Hat Linux 8.0 3.2-7)</code></pre></div>
+<p>Versions for GCC and OS used by the exploit writer.<br />
+and the most important&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">TYPE=licxfer&amp;ftp=%s&amp;source=/var/home/ftp/pub&amp;version=NA&amp;licfile=;echo &#34;</code></pre></div>
+<h2 id="functionalities">Functionalities</h2>
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/exploit_arguments.png" alt="Exploit-Arguments" /></p>
+
+<p>As you can see in the image the exploit permits:</p>
+
+<ul>
+<li>Specify the name of the log file.</li>
+<li>Save MAC times of the modified files</li>
+<li>Indicate a script as a payload.</li>
+<li>Run the last one as Root.</li>
+<li>Do a scan for the version of the server.</li>
+</ul>
+
+<h2 id="reversing-the-exploit">Reversing the exploit</h2>
+
+<p>We start reversing the main function, in a principle we only see a switch for parse the parameters.</p>
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/IDA-1.png" alt="IDA-1" /></p>
+
+<p>Off the bat we start to notice something in particular: a strong error check.</p>
+
+<p>For each function called in the exploit you can check its return code and in the case that a error came up a call to &lsquo;cleanup&rsquo; is done. This is a function that cleans all the buffers used and/or open sockets permitting a clean way to close the exploit.</p>
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/cleanup_function.png" alt="Cleanup-function" /></p>
+
+<p>This, together with the intensive log of each variable, shows that we are really see a professional exploit and not a simple PoC. You can really tell that someone put a lot of time into it to make it usable for pentesters beyond just the exploit writer.</p>
+
+<p>We continued analyzing the main and some blocks that got our attention.</p>
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/cert_key.png" alt="Private-key" /></p>
+
+<p><strong><em>We have a certificate in PEM format and a private key!</em></strong></p>
+
+<p>But why is this here?<br />
+This is the information for the certificate, together with a match check between the certificate and the private key&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">Common Name: 130.62.9.101
+Organization: Avaya Inc.
+Organization Unit: s8700
+Country: US
+Valid From: May 17, 2006
+Valid To: May 9, 2036
+Issuer: Avaya Call Server, Avaya Inc.
+Serial Number: 5024b4b220060517120931</code></pre></div>
+<p>The certificate is signed by Avaya Inc. which corresponds with the <a href="https://downloads.avaya.com/elmodocs2/s8700/83help/sec_cert_ovr.htm#Types%20of%20security%20certificates" target="_blank">documentation</a> of the product which indicates that the certificates are self-signed by Avaya. Additionally, this was created for <strong>130.62.9.101</strong>, probably one of the <strong>targets of the NSA</strong> for this exploit.</p>
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/certificate.png" alt="Certificate" /></p>
+
+<p>Ok, but how we use that? Because the certificate is self-signed by Avaya, there haven&rsquo;t the CA in any trusted store of an operating system or browser of your choice. As a result it&rsquo;s necessary to add the certificate to that store to be able to establish a HTTPS connection that the exploit needs.</p>
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/ssl_ctx_cert.png" alt="IDA-SSL" /></p>
+
+<p>But besides adding the <strong>certificate to the store</strong> does it add the <strong>private password</strong> to the Ctx object?<br />
+That&rsquo;s right&hellip; this is due to the fact that there is a function named &lsquo;client_comm&rsquo; which is called one time from the main. This is responsible for creating the necessary SSL_CTX object to establish the SSL connection and check that the function of the client (likewise the server), works correctly in the exploit. Do you remember the strong errors check?</p>
+
+<p>One of the exploit&rsquo;s functions is act as a scanner to be able to check the version of the Appliance. Lets check out how you can do that&hellip;</p>
+
+<p>The function <strong>&lsquo;version_scan&rsquo;</strong> builds line to line a <strong>Request POST HTTPS</strong> to <strong>/auth-cgi-bin/distUpgReq</strong> with the following parameters:</p>
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/version.png" alt="IDA-VERSION" /></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Textfile" data-lang="Textfile">TYPE=query&amp;ftp=[VICTIM_IP]&amp;source=/var/home/ftp/pub&amp;version=NA</code></pre></div>
+<p>Parse the response looking for the substrings:</p>
+
+<ul>
+<li>version=</li>
+<li>patch=</li>
+<li>sid=</li>
+<li>mid=</li>
+</ul>
+
+<p>After it looks for a &lsquo;\n&rsquo; at the end of those substrings, its starts printing in the console (in verbose mode) the result of each substring searched.</p>
+
+<p><strong><em>We finally got the &lsquo;exploit&rsquo; function!</em></strong></p>
+
+<p>In this function we found quite a surprise. There&rsquo;s <strong>dead code</strong>&hellip; code that doesn&rsquo;t execute ever as a result of the two global variables that don&rsquo;t have instances at any time during the exploit.<br />
+These global variables are named &lsquo;BinFile&rsquo; and &lsquo;AscFile&rsquo; and later on we will be able to see the results of search all the instructions that refers to them in the exploit.</p>
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/BinFile_missing.png" alt="IDA-BinFile-Missing" /></p>
+
+<p>It doesn&rsquo;t set any values&hellip;</p>
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/AscFile_missing.png" alt="IDA-AscFile-Missing" /></p>
+
+<p>Same case here&hellip;</p>
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/seteo_indirecto.png" alt="IDA-AscFile-Missing" /></p>
+
+<p>You can&rsquo;t set it using eax either&hellip;</p>
+
+<p>The best theory that we came up with about this, is that the exploit writer due to lack of time refactor the sending of files and execution, forgetting about this block of code and or leaving it alone because he was never going to be able run it suceessfully.</p>
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/basic_blocks_deads.png" alt="IDA-Basic-Blocks-Dead" /></p>
+
+<p>While, putting this aside for a second, the exploit follows this path.</p>
+
+<ol>
+<li>Create 2 random paths in /tmp/%d and another in /tftpboot/%d. Replacing %d with a random number.</li>
+<li>Appear dead code inside of <strong>if(BinFile)</strong> and <strong>if(AscFile)</strong>, and as we saw, this will not ever run.</li>
+</ol>
+
+<p>A loop that reads each 1024 bytes of a specified payload from a file, to be encoded with URL encode.</p>
+
+<p>If it is the first line read and if it asked for root privileges for the script file:</p>
+
+<ul>
+<li><p>It makes a command that moves everything in <strong>/tftpboot/%random_number</strong> (a backup) to <strong>/opt/ws/%original_name/</strong> webupgrade (It&rsquo;s original site) and eliminates this backup.</p></li>
+
+<li><p>It concates to a buffer, the command of the payload read and after the command from the previous bridge.</p></li>
+</ul>
+
+<p>If it isn&rsquo;t the first line read:</p>
+
+<ol>
+<li>We copied this line of the payload to the buffer.</li>
+</ol>
+
+<p>When this buffer is full (&gt; 724 ) in this latter iteration of the loop.</p>
+
+<ul>
+<li>It makes use of <strong>snd_n_append sending</strong> the saved command in the previous buffer and it saves everything in the first random path in <strong>/tmp</strong>, which we will call <strong>path_random1</strong>.</li>
+</ul>
+
+<p>This occurs in an infinite loop until it finishes reading the payload script of the user. Here is when everything happens&hellip;</p>
+
+<ol>
+<li>If there was a pending command about to send, it is sent using <strong>snd_n_append</strong>.</li>
+<li>Build a command that erases the two random paths created (<strong>path_random1</strong> and <strong>path_random2</strong>) and this is written in <strong>path_random1</strong>.</li>
+<li>In <strong>path_random2</strong> it writes a command that runs the <strong>path_random1</strong> file redirecting the streams to a <strong>/dev/null</strong>.</li>
+<li>If the user asked for <strong>Root</strong> priveleges:
+
+<ul>
+<li>It saves the MAC of all the files and directories in <strong>/opt</strong>. Additionally, it changes it&rsquo;s MAC to that instant.</li>
+<li>The same with <strong>tftpboot/</strong></li>
+<li>The same goes for <strong>/opt/ws/</strong></li>
+<li>It makes a link of each file and directory of <strong>/opt/ws/*/webupgrade</strong> (except the links) to the <strong>tftpboot</strong> path.</li>
+<li>It runs:
+<code>
+sudo /opt/ws/webinstall modifyFileEntry /opt/ws/webupgrade &quot;.&quot; &quot;/opt/ws/functions | . %path_random2 | exit
+</code></li>
+<li>It runs:
+<code>
+sudo /opt/ws/webupgrade
+</code></li>
+</ul></li>
+<li>If the user didn&rsquo;t ask for <strong>Root</strong>: It runs directly the <strong>%path_random2</strong>.</li>
+<li>If the user proportions the files whose MAC wants to change, the exploit sets the MAC to real-time for each file.</li>
+</ol>
+
+<p>Great&hellip; Now we have the execution of the code and all the functionalities of the exploit pretty reasonably explained.</p>
+
+<p>A simple way, the <strong>%path_random2</strong> file to end up running <strong>%path_random1</strong> (which contains the payload of the user). Additionally, the necessary commands are run in order to change the MAC for files and directories like as was done for commands to gain <strong>ROOT</strong> privileges.<br />
+This is possible using <strong>sudo</strong>, because the user that runs the vulnerable code has access for the <strong>sudo</strong> use. This is a bad security practice for users that run services such as HTTP servers.<br />
+For the binaries run in /opt/ws, due to not have access to the software and on the internet there is documentation for them we can&rsquo;t specify anything.</p>
+
+<p>Great! we already have everything, but <strong>which one is the vulnerability</strong>?!</p>
+
+<p>The vulnerability is exploited in the <strong>bld_n_snd_http</strong> function. Look for yourselves&hellip;</p>
+
+<p><img src="/images/posts/nsa-shadowbrokers-epichero/rsz_shell_injection.png" alt="Rsz-Shell-Injection" /></p>
+
+<p>&lsquo;aTypeLicxFerF_7&rsquo; is the string format that creates the POST parameters which are sent in the <strong>Request POST</strong> via <strong>HTTPS</strong> to a <strong>CGI</strong> in <strong>/auth-cgi-bin/distUpgReq</strong>.</p>
+
+<p>Can you see the <strong>;echo</strong> in the <strong>licfile</strong> parameter? This is clearly a <strong>Command Injection</strong>, the <strong>CGI</strong> concate <strong>licfile</strong> parameter in the command that will be run in a shell. This is the way the NSA&rsquo;s exploit achieved code execution.<br />
+The function <strong>snd_n_append</strong> mentioned earlier, that wrote a file in the remote system is simply a Wrapper of this last function.<br />
+It reads the sent files by parameters and after it calls <strong>bld_n_snd_http</strong> passing as a parameter a string with all POST parameters of this CGI.</p>
+
+<p>To wrap things up, I would like to mention that there is a script in the leak <a href="https://github.com/x0rz/EQGRP/blob/master/Linux/bin/epichero/cleanup.script" target="_blank">/Linux/bin/epichero/cleanup.script</a> which does an inspection for the logs of apache and erases any trace of the exploit in a pretty detailed way. On top of this, it restores the backups of the directory /opt/ws and eliminates the file <strong>/var/iglut/upg_status.dat</strong>.</p>
+
+<p>Lastly, an interesting piece of information in the same directory of this script is the reverse shell used by NSA and that contains the address <strong>IPv4 206.210.129.25 (Amphitheater Public Schools)</strong>.<br />
+It could be possible that this is one of the servers hacked by NSA to hide traces of its Shells and exploits.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The exploit was developed with a lot of protective error checking. Features against forensic analysis such as changing the MAC of the files and directories in addition to a strong log of each action done by the exploit. All of this shows the huge amoung of effort dedicated to creating the most effective and &ldquo;sneaky&rdquo; exploit possible to avoid tipping off any alerts as was done, also in the obtention and use of violated servers previously to use how receivers of its Reverse Shells an be more stealth.</p>
+
+<h2 id="credits">Credits</h2>
+
+<p>Author:<br />
+Ezequiel Tavella</p>
+
+<p>Contributions:<br />
+Josh Mador<br />
+Federico Kirschbaum</p>
+
+<p><strong><em>Note: Originally published in <a href="https://blog.infobytesec.com/2017/05/nsa-shadowbrokers-leak-analyzing.html" target="_blank">Infobyte Blog</a></em></strong></p>
+]]></content>
+        </item>
         
         <item>
             <title>[ES] Cybercamp 2015 CTF: Criptografia challenge</title>

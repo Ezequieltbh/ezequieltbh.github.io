@@ -3,14 +3,43 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://ezequieltbh.me/about/</loc>
-    <lastmod>2019-04-07T01:18:57-03:00</lastmod>
+    <loc>https://ezequieltbh.me/</loc>
+    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ezequieltbh.me/</loc>
-    <lastmod>2019-04-07T01:18:57-03:00</lastmod>
+    <loc>https://ezequieltbh.me/posts/2019/05/love-is-in-the-air-reverse-engineering-a-shitty-drone/</loc>
+    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/posts/</loc>
+    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/rf/</loc>
+    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/sdr/</loc>
+    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/</loc>
+    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/about/</loc>
+    <lastmod>2019-04-07T01:18:57-03:00</lastmod>
   </url>
   
   <url>
@@ -31,19 +60,7 @@
   </url>
   
   <url>
-    <loc>https://ezequieltbh.me/posts/</loc>
-    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ezequieltbh.me/tags/shadowbrokers/</loc>
-    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ezequieltbh.me/tags/</loc>
     <lastmod>2017-05-03T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>

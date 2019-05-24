@@ -6,64 +6,10 @@
     <description>Recent content in Tags on EzequielTBH Blog&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Tue, 21 May 2019 00:00:00 -0300</lastBuildDate>
+    <lastBuildDate>Wed, 05 Aug 2015 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://ezequieltbh.me/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>RF</title>
-      <link>https://ezequieltbh.me/tags/rf/</link>
-      <pubDate>Tue, 21 May 2019 00:00:00 -0300</pubDate>
-      
-      <guid>https://ezequieltbh.me/tags/rf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SDR</title>
-      <link>https://ezequieltbh.me/tags/sdr/</link>
-      <pubDate>Tue, 21 May 2019 00:00:00 -0300</pubDate>
-      
-      <guid>https://ezequieltbh.me/tags/sdr/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Epichero</title>
-      <link>https://ezequieltbh.me/tags/epichero/</link>
-      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://ezequieltbh.me/tags/epichero/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Nsa</title>
-      <link>https://ezequieltbh.me/tags/nsa/</link>
-      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://ezequieltbh.me/tags/nsa/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Shadowbrokers</title>
-      <link>https://ezequieltbh.me/tags/shadowbrokers/</link>
-      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
-      
-      <guid>https://ezequieltbh.me/tags/shadowbrokers/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>CTF</title>
-      <link>https://ezequieltbh.me/tags/ctf/</link>
-      <pubDate>Wed, 05 Aug 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://ezequieltbh.me/tags/ctf/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Criptografia</title>
@@ -84,6 +30,15 @@
     </item>
     
     <item>
+      <title>Ctf</title>
+      <link>https://ezequieltbh.me/tags/ctf/</link>
+      <pubDate>Wed, 05 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Cybercamp</title>
       <link>https://ezequieltbh.me/tags/cybercamp/</link>
       <pubDate>Wed, 05 Aug 2015 00:00:00 +0000</pubDate>
@@ -93,11 +48,56 @@
     </item>
     
     <item>
-      <title>ESET</title>
+      <title>Epichero</title>
+      <link>https://ezequieltbh.me/tags/epichero/</link>
+      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/tags/epichero/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Eset</title>
       <link>https://ezequieltbh.me/tags/eset/</link>
       <pubDate>Fri, 20 Mar 2015 00:00:00 +0000</pubDate>
       
       <guid>https://ezequieltbh.me/tags/eset/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Infosecinstitute</title>
+      <link>https://ezequieltbh.me/tags/infosecinstitute/</link>
+      <pubDate>Mon, 16 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/tags/infosecinstitute/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nsa</title>
+      <link>https://ezequieltbh.me/tags/nsa/</link>
+      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/tags/nsa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Reversing</title>
+      <link>https://ezequieltbh.me/tags/reversing/</link>
+      <pubDate>Tue, 21 May 2019 00:00:00 -0300</pubDate>
+      
+      <guid>https://ezequieltbh.me/tags/reversing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rf</title>
+      <link>https://ezequieltbh.me/tags/rf/</link>
+      <pubDate>Tue, 21 May 2019 00:00:00 -0300</pubDate>
+      
+      <guid>https://ezequieltbh.me/tags/rf/</guid>
       <description></description>
     </item>
     

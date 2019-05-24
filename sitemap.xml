@@ -3,38 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://ezequieltbh.me/</loc>
-    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ezequieltbh.me/posts/2019/05/love-is-in-the-air-reverse-engineering-a-shitty-drone/</loc>
     <lastmod>2019-05-21T00:00:00-03:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ezequieltbh.me/posts/</loc>
-    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ezequieltbh.me/tags/rf/</loc>
-    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ezequieltbh.me/tags/sdr/</loc>
-    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ezequieltbh.me/tags/</loc>
-    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -43,50 +13,8 @@
   </url>
   
   <url>
-    <loc>https://ezequieltbh.me/tags/epichero/</loc>
-    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ezequieltbh.me/tags/nsa/</loc>
-    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ezequieltbh.me/posts/2017/05/nsa-shadowbrokers-leak-analyzing-epichero/</loc>
     <lastmod>2017-05-03T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ezequieltbh.me/tags/shadowbrokers/</loc>
-    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ezequieltbh.me/tags/ctf/</loc>
-    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ezequieltbh.me/tags/criptografia/</loc>
-    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ezequieltbh.me/tags/crypto/</loc>
-    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ezequieltbh.me/tags/cybercamp/</loc>
-    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -95,20 +23,8 @@
   </url>
   
   <url>
-    <loc>https://ezequieltbh.me/tags/eset/</loc>
-    <lastmod>2015-03-20T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ezequieltbh.me/posts/2015/03/es-desaf%C3%ADo-eset-29-write-up/</loc>
     <lastmod>2015-03-20T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://ezequieltbh.me/tags/infosecinstitute/</loc>
-    <lastmod>2015-03-16T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -127,7 +43,97 @@
   </url>
   
   <url>
-    <loc>https://ezequieltbh.me/index.html</loc>
+    <loc>https://ezequieltbh.me/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/criptografia/</loc>
+    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/crypto/</loc>
+    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/ctf/</loc>
+    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/cybercamp/</loc>
+    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/epichero/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/eset/</loc>
+    <lastmod>2015-03-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/</loc>
+    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/infosecinstitute/</loc>
+    <lastmod>2015-03-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/nsa/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/posts/</loc>
+    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/reversing/</loc>
+    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/rf/</loc>
+    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/sdr/</loc>
+    <lastmod>2019-05-21T00:00:00-03:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/shadowbrokers/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ezequieltbh.me/tags/</loc>
+    <lastmod>2015-08-05T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

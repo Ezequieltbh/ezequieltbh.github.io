@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Posts on EzequielTBH Blog&#39;s</title>
@@ -350,6 +351,10 @@ Maximum transmission power and &ldquo;Bitrate&rdquo; of 250 KBPS, including the 
 <p>Fabrizio Scaglione</p>
 
 <p>Josh Mador</p>
+
+<hr />
+
+<p>Special thanks to all people that help me with this project! You know who you are&hellip;</p>
 ]]></content>
         </item>
         
@@ -525,29 +530,24 @@ These global variables are named &lsquo;BinFile&rsquo; and &lsquo;AscFile&rsquo;
 <li>If there was a pending command about to send, it is sent using <strong>snd_n_append</strong>.</li>
 <li>Build a command that erases the two random paths created (<strong>path_random1</strong> and <strong>path_random2</strong>) and this is written in <strong>path_random1</strong>.</li>
 <li>In <strong>path_random2</strong> it writes a command that runs the <strong>path_random1</strong> file redirecting the streams to a <strong>/dev/null</strong>.</li>
-
-<li><p>If the user asked for <strong>Root</strong> priveleges:</p>
+<li>If the user asked for <strong>Root</strong> priveleges:
 
 <ul>
 <li>It saves the MAC of all the files and directories in <strong>/opt</strong>. Additionally, it changes it&rsquo;s MAC to that instant.</li>
 <li>The same with <strong>tftpboot/</strong></li>
 <li>The same goes for <strong>/opt/ws/</strong></li>
 <li>It makes a link of each file and directory of <strong>/opt/ws/*/webupgrade</strong> (except the links) to the <strong>tftpboot</strong> path.</li>
-
-<li><p>It runs:</p>
-
-<pre><code>sudo /opt/ws/webinstall modifyFileEntry /opt/ws/webupgrade &quot;.&quot; &quot;/opt/ws/functions | . %path_random2 | exit
-</code></pre></li>
-
-<li><p>It runs:</p>
-
-<pre><code>sudo /opt/ws/webupgrade
-</code></pre></li>
+<li>It runs:
+<code>
+sudo /opt/ws/webinstall modifyFileEntry /opt/ws/webupgrade &quot;.&quot; &quot;/opt/ws/functions | . %path_random2 | exit
+</code></li>
+<li>It runs:
+<code>
+sudo /opt/ws/webupgrade
+</code></li>
 </ul></li>
-
-<li><p>If the user didn&rsquo;t ask for <strong>Root</strong>: It runs directly the <strong>%path_random2</strong>.</p></li>
-
-<li><p>If the user proportions the files whose MAC wants to change, the exploit sets the MAC to real-time for each file.</p></li>
+<li>If the user didn&rsquo;t ask for <strong>Root</strong>: It runs directly the <strong>%path_random2</strong>.</li>
+<li>If the user proportions the files whose MAC wants to change, the exploit sets the MAC to real-time for each file.</li>
 </ol>
 
 <p>Great&hellip; Now we have the execution of the code and all the functionalities of the exploit pretty reasonably explained.</p>

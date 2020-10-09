@@ -10,11 +10,11 @@
         <atom:link href="https://ezequieltbh.me/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>Ekoparty 2020 Main CTF - Lucky Challenge Writeup</title>
-            <link>https://ezequieltbh.me/posts/2020/10/ekoparty-2020-main-ctf-lucky-challenge-writeup/</link>
+            <title>[ES] Ekoparty 2020 Main CTF - Lucky Challenge Writeup</title>
+            <link>https://ezequieltbh.me/posts/2020/10/es-ekoparty-2020-main-ctf-lucky-challenge-writeup/</link>
             <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
             
-            <guid>https://ezequieltbh.me/posts/2020/10/ekoparty-2020-main-ctf-lucky-challenge-writeup/</guid>
+            <guid>https://ezequieltbh.me/posts/2020/10/es-ekoparty-2020-main-ctf-lucky-challenge-writeup/</guid>
             <description>La conferencia de seguridad Ekoparty se realizo hace unos dias nuevamente, aun asi con una pandemia de por medio, la misma se realizo de forma online por suerte :)
 Este año juntos con unos compañeros y amigos, estuvimos participando del Main CTF de la Ekoparty, para ser el primer año participando y un equipo recien armado, obtuvimos muy buenos resultados en la tabla de posiciones.
 Los desafios del CTF estaban enfocados en Malware, los retos eran binarios reales de Malware mayormente Ransomware que fueron modificados o aprovechados de alguna forma para poder proporcionar un flag.</description>
@@ -51,7 +51,11 @@ Mirando la pestaña <strong>Community</strong> de Virustotal nos encontramos con
 
 <p>Asi que con un poco de Google nos encontramos con un analisis de <a href="http://htnhan.blogspot.com/2016/04/reversing-locky-juicy-parts.html" target="_blank">htnhan</a> muy interesante y a bajo nivel sobre como funciona el Malware.</p>
 
-<p>En este analisis, estamos interesando en la seccion <strong>C&amp;C communication</strong> que esta en el subtitulo <strong>6. Main stuffs</strong>, al parecer el Malware se comunica con su C&amp;C usando peticiones HTTP POST pero con el contenido binario cifrado usando un algoritmo propio del Malware.</p>
+<p>En este analisis, estamos interesando en la seccion <strong>C&amp;C communication</strong> la cual explica como es la comunicacion con el <strong>Command And Control</strong> el cual es un servidor controlado por el creador de Malware para enviar las claves de cifrado del Ransomware y comunicarse con cada sistema infectado, entre otras cosas.</p>
+
+<p>Al parecer el Malware se comunica con su <strong>C&amp;C</strong> usando peticiones HTTP POST pero con el contenido binario cifrado usando un algoritmo propio del Malware.</p>
+
+<p>El mismo es una combinacion de <strong>&ldquo;cifrado&rdquo; XOR</strong> junto con operaciones <strong>AND</strong> y <strong>shift</strong> binario</p>
 
 <p>Recuerdan el PCAP que tenemos? Bueno tal vez viene por ahi&hellip; el reto es entender el algoritmo de cifrado utilizado por el Malware, implementarlo y descifrar esa informacion binaria del PCAP.</p>
 
@@ -82,7 +86,7 @@ ctext <span style="color:#f92672">=</span> bytearray()
 <p>Ahora lo ejecutamos</p>
 
 <ul>
-<li><strong>python3 decode.py</strong></li>
+<li><strong>python3 ./decode-lucky.py</strong></li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">~ ❯❯❯ python3 ./decode-lucky.py
 bytearray<span style="color:#f92672">(</span>b<span style="color:#e6db74">&#39;g\x19\xc0\xd61\xa0\x7f\x9a\x11\xde\xe3\x81\xe3;\xe2\xfcJ\x0e\x13\x1e\xcf~&lt;\xf8\x06\x1c\x85\xd8X|\x0eg\xbf\xff\x9f\xef\xb5\x9c\x9f)\x066\xf6\xce\xa3`c\x16o\x9b\x08\xef\xe2q\xe2\xd5\x84\xe6\xbf\xb3K\x05p\xea\xbdWZUu\x1c\x15^\xe97im\xdbETJ\xec\x08t\x87\xba&#39;</span><span style="color:#f92672">)</span></code></pre></div>

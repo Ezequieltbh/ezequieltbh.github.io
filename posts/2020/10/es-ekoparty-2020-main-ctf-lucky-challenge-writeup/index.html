@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author"
+    content="Ezequiel Tavella ">
+<meta name="description"
+    content="La conferencia de seguridad Ekoparty se realizo hace unos dias nuevamente, aun asi con una pandemia de por medio, la misma se realizo de forma online por suerte :)
+Este año juntos con unos compañeros y amigos, estuvimos participando del Main CTF de la Ekoparty, para ser el primer año participando y un equipo recien armado, obtuvimos muy buenos resultados en la tabla de posiciones.
+Los desafios del CTF estaban enfocados en Malware, los retos eran binarios reales de Malware mayormente Ransomware que fueron modificados o aprovechados de alguna forma para poder proporcionar un flag." />
+<meta name="keywords" content="computers, network, hacking, security, research" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://ezequieltbh.me/posts/2020/10/es-ekoparty-2020-main-ctf-lucky-challenge-writeup/" />
+
+
+<title>
+    
+    [ES] Ekoparty 2020 Main CTF - Lucky Challenge Writeup :: EzequielTBH Blog&#39;s 
+    
+</title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.1/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://ezequieltbh.me/main.min.91687bbfc139d7ff1a244bb6d7324425f9c4f424eaaad242b478e3b3cf56396a.css">
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://ezequieltbh.me/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ezequieltbh.me/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ezequieltbh.me/favicon-16x16.png">
+<link rel="manifest" href="https://ezequieltbh.me/site.webmanifest">
+<link rel="mask-icon" href="https://ezequieltbh.me/safari-pinned-tab.svg" color="#252627">
+<link rel="shortcut icon" href="https://ezequieltbh.me/favicon.ico">
+<meta name="theme-color" content="#252627">
+<meta itemprop="name" content="[ES] Ekoparty 2020 Main CTF - Lucky Challenge Writeup">
+<meta itemprop="description" content="La conferencia de seguridad Ekoparty se realizo hace unos dias nuevamente, aun asi con una pandemia de por medio, la misma se realizo de forma online por suerte :)
+Este año juntos con unos compañeros y amigos, estuvimos participando del Main CTF de la Ekoparty, para ser el primer año participando y un equipo recien armado, obtuvimos muy buenos resultados en la tabla de posiciones.
+Los desafios del CTF estaban enfocados en Malware, los retos eran binarios reales de Malware mayormente Ransomware que fueron modificados o aprovechados de alguna forma para poder proporcionar un flag.">
+
+
+<meta itemprop="datePublished" content="2020-10-08T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-10-08T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="1097">
+
+
+
+<meta itemprop="keywords" content="CTF,Writeup,Challenge," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ezequieltbh.me"/>
+
+<meta name="twitter:title" content="[ES] Ekoparty 2020 Main CTF - Lucky Challenge Writeup"/>
+<meta name="twitter:description" content="La conferencia de seguridad Ekoparty se realizo hace unos dias nuevamente, aun asi con una pandemia de por medio, la misma se realizo de forma online por suerte :)
+Este año juntos con unos compañeros y amigos, estuvimos participando del Main CTF de la Ekoparty, para ser el primer año participando y un equipo recien armado, obtuvimos muy buenos resultados en la tabla de posiciones.
+Los desafios del CTF estaban enfocados en Malware, los retos eran binarios reales de Malware mayormente Ransomware que fueron modificados o aprovechados de alguna forma para poder proporcionar un flag."/>
+
+
+
+
+<meta property="article:published_time" content="2020-10-08 00:00:00 &#43;0000 &#43;0000" />
+
+
+
+
+
+
+
+    </head>
+
+    <body class="dark-theme">
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://ezequieltbh.me/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text"># </span>
+            <span class="logo__cursor"></span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://ezequieltbh.me/about/">About</a></li><li><a href="https://ezequieltbh.me/posts/">Posts</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+
+            <span class="theme-toggle"><svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+</span>
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6 minutes
+
+            
+
+            </p>
+        </div>
+
+        <article>
+            <h1 class="post-title"><a href="https://ezequieltbh.me/posts/2020/10/es-ekoparty-2020-main-ctf-lucky-challenge-writeup/">[ES] Ekoparty 2020 Main CTF - Lucky Challenge Writeup</a></h1>
+
+            
+
+            <div class="post-content">
+                <p>La conferencia de seguridad <a href="https://ekoparty.org/" target="_blank">Ekoparty</a> se realizo hace unos dias nuevamente, aun asi con una pandemia de por medio, la misma se realizo de forma online por suerte :)</p>
+
+<p>Este año juntos con unos compañeros y amigos, estuvimos participando del Main CTF de la Ekoparty, para ser el primer año participando y un equipo recien armado, obtuvimos muy buenos resultados en la tabla de posiciones.</p>
+
+<p>Los desafios del CTF estaban enfocados en Malware, los retos eran binarios reales de Malware mayormente Ransomware que fueron modificados o aprovechados de alguna forma para poder proporcionar un flag.</p>
+
+<p>Este es un Writeup del reto llamado Lucky, el cual lo resolvimos junto a <a href="https://licenciaparahackear.github.io/" target="_blank"><strong>Matias Lang</strong></a>.
+Les recomiendo mucho seguir su blog, el contenido que publica es de una gran calidad tecnica y muy interesante!</p>
+
+<p><img src="https://ezequieltbh.me/images/posts/lucky-ctf-eko-2020/lucky.png" alt="Lucky-Descripcion" /></p>
+
+<p>Descargando el archivo Zip vemos que el mismo contiene dos archivos: un PCAP y un archivo sin extension que resulta ser el malware en si.</p>
+
+<p>Cuando abrimos el PCAP podemos observar que hay una peticion HTTP que es el unico trafico capturado:</p>
+
+<p><img src="https://ezequieltbh.me/images/posts/lucky-ctf-eko-2020/lucky-pcap.png" alt="Lucky-PCAP" /></p>
+
+<p>Por el otro lado, tenemos el binario del Malware en si, llamado &ldquo;lucky&rdquo; sin ninguna extension.
+Lo primero que hicimos fue subirlo a <a href="https://www.virustotal.com/gui/file/cb5bc1b19737197d4fedc3ce0311414f65662b88fc7164f5ed8091e9a12f6fe0/community" target="_blank">Virustotal</a> y asi poder identificar que Malware estabamos enfrentando:</p>
+
+<ul>
+<li><strong>Win32.Trojan-Ransom.Locky.A</strong></li>
+</ul>
+
+<p>Locky es muy parecido a Lucky&hellip; No debe ser coincidencia, eso no suele pasar en los CTFs&hellip;
+Mirando la pestaña <strong>Community</strong> de Virustotal nos encontramos con el engine de analisis Intezer, el cual tiene una funcionalidad muy interesante: comparacion de samples basandose en sus &ldquo;genes&rdquo;.</p>
+
+<p>De esta manera usando <a href="https://analyze.intezer.com/files/03f6ab1b482eac4acfb793c3e8d0656d7c33cddb5fc38416019d526f43577761/families/b119db45-ccea-4bc3-b6b4-5b00188b50c1" target="_blank"><strong>Intezer</strong></a>, obtuvimos que la muestra original tiene el SHA 256 <strong>03f6ab1b482eac4acfb793c3e8d0656d7c33cddb5fc38416019d526f43577761</strong> y usando <a href="https://app.any.run/tasks/274d2b17-d507-408d-a591-28b92102ae3c" target="_blank">AnyRun</a> obtuvimos una muestra del Ransomware original.</p>
+
+<p>El siguiente paso, fue buscar un poco de informacion acerca del Ransomware, hasta el momento tenemos un PCAP con una peticion HTTP que parece tener informacion binaria, una muestra del malware Original y nuestro malware del CTF.</p>
+
+<p>Asi que con un poco de Google nos encontramos con un analisis de <a href="http://htnhan.blogspot.com/2016/04/reversing-locky-juicy-parts.html" target="_blank">htnhan</a> muy interesante y a bajo nivel sobre como funciona el Malware.</p>
+
+<p>En este analisis, estamos interesando en la seccion <strong>C&amp;C communication</strong> la cual explica como es la comunicacion con el <strong>Command And Control</strong> el cual es un servidor controlado por el creador de Malware para enviar las claves de cifrado del Ransomware y comunicarse con cada sistema infectado, entre otras cosas.</p>
+
+<p>Al parecer el Malware se comunica con su <strong>C&amp;C</strong> usando peticiones HTTP POST pero con el contenido binario cifrado usando un algoritmo propio del Malware.</p>
+
+<p>El mismo es una combinacion de <strong>&ldquo;cifrado&rdquo; XOR</strong> junto con operaciones <strong>AND</strong> y <strong>shift</strong> binario</p>
+
+<p>Recuerdan el PCAP que tenemos? Bueno tal vez viene por ahi&hellip; el reto es entender el algoritmo de cifrado utilizado por el Malware, implementarlo y descifrar esa informacion binaria del PCAP.</p>
+
+<p>Asi que eso fue lo que hicimos, simplemente usamos el codigo del blogpost para realizar el descifrado del payload en el PCAP, para esto necesitamos la key de cifrado que se llama <strong>K0</strong> y la funcion <strong>client_decrypt</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_rol</span>(val, bits, bit_size):
+    <span style="color:#66d9ef">return</span> (val <span style="color:#f92672">&lt;&lt;</span> bits <span style="color:#f92672">%</span> bit_size) <span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> bit_size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">|</span> \
+           ((val <span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> bit_size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">&gt;&gt;</span> (bit_size <span style="color:#f92672">-</span> (bits <span style="color:#f92672">%</span> bit_size)))
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_ror</span>(val, bits, bit_size):
+    <span style="color:#66d9ef">return</span> ((val <span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> bit_size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">&gt;&gt;</span> bits <span style="color:#f92672">%</span> bit_size) <span style="color:#f92672">|</span> \
+           (val <span style="color:#f92672">&lt;&lt;</span> (bit_size <span style="color:#f92672">-</span> (bits <span style="color:#f92672">%</span> bit_size)) <span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> bit_size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>))
+
+__ROR4__ <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> val, bits: _ror(val, bits, <span style="color:#ae81ff">32</span>)
+__ROL4__ <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> val, bits: _rol(val, bits, <span style="color:#ae81ff">32</span>)
+
+payload <span style="color:#f92672">=</span> bytearray(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x1f\xdd\x28\xc1\xdb\x96\x8f\x37\x44\x97\x6c\x3d\xd6\x9a\xf9\xaa\x8a\x15\x15\x86\xa8\xf6\xb3\x64\x23\xf5\x7a\xbc\x41\x4a\x5e\x14\x6f\x6a\xce\xc8\x51\x6b\x43\xde\x72\x27\x95\xa4\xbd\xd4\x72\xc5\x6d\x61\xfe\x8f\x79\x07\x92\x36\x9e\x10\xcf\x10\xb1\xc3\x58\x25\x3d\xea\xb2\xb1\x59\xf7\x4f\xd2\x3c\x7e\x76\x59\xaa\x46\x1e\xb4\xf8\xf9\x07\x25\xc0</span><span style="color:#e6db74">&#34;</span>)
+
+key <span style="color:#f92672">=</span>  <span style="color:#ae81ff">0xCD43EF19</span>
+ctext <span style="color:#f92672">=</span> bytearray()
+
+<span style="color:#66d9ef">for</span> i, v <span style="color:#f92672">in</span> enumerate(payload):
+    n <span style="color:#f92672">=</span> ((__ROR4__(key, <span style="color:#ae81ff">0x05</span>) <span style="color:#f92672">-</span> __ROL4__(i, <span style="color:#ae81ff">0x0D</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>) <span style="color:#f92672">^</span> v) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>
+    ctext<span style="color:#f92672">.</span>append(n)
+    tmp <span style="color:#f92672">=</span> __ROL4__(n, (i <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x1F</span>) <span style="color:#f92672">+</span> __ROR4__(key, <span style="color:#ae81ff">0x1</span>)
+    key <span style="color:#f92672">=</span> tmp <span style="color:#f92672">^</span> (__ROR4__(i, <span style="color:#ae81ff">0x17</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x53702f68</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFFFFFFFF</span>
+
+<span style="color:#66d9ef">print</span>(ctext)</code></pre></div>
+<p>Ahora lo ejecutamos</p>
+
+<ul>
+<li><strong>python3 ./decode-lucky.py</strong></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">~ ❯❯❯ python3 ./decode-lucky.py
+bytearray<span style="color:#f92672">(</span>b<span style="color:#e6db74">&#39;g\x19\xc0\xd61\xa0\x7f\x9a\x11\xde\xe3\x81\xe3;\xe2\xfcJ\x0e\x13\x1e\xcf~&lt;\xf8\x06\x1c\x85\xd8X|\x0eg\xbf\xff\x9f\xef\xb5\x9c\x9f)\x066\xf6\xce\xa3`c\x16o\x9b\x08\xef\xe2q\xe2\xd5\x84\xe6\xbf\xb3K\x05p\xea\xbdWZUu\x1c\x15^\xe97im\xdbETJ\xec\x08t\x87\xba&#39;</span><span style="color:#f92672">)</span></code></pre></div>
+<p>No parecer ser texto en claro ni tener el flag que estamos buscando&hellip;</p>
+
+<p>Luego de pensar un rato y analizar posibilidades, se nos ocurrio, que pasa si comparamos la muestra original que tenemos y la muestra modificada que nos proporciona el  reto?</p>
+
+<p>Para eso usamos los siguientes comandos con la idea de obtener una representacion hexadecimal de cada binario, siendo <strong>sample_1.bin</strong> la muestra original y <strong>lucky</strong> la muestra del reto, para luego hacer una comparacion de las mismas usando <strong>diff</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">xxd sample_1.bin &gt; sample_1_diff.hex
+xxd lucky &gt; lucky_diff.hex
+diff &lt;<span style="color:#f92672">(</span>xxd sample_1_diff.hex<span style="color:#f92672">)</span> &lt;<span style="color:#f92672">(</span>xxd lucky_diff.hex<span style="color:#f92672">)</span></code></pre></div>
+<p>Cuando hacemos esto vemos que buscando por nuestro <strong>K0</strong>, recuerden que es la key de cifrado, encontramos que hay una diferencia:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">&lt; 0001ba20: <span style="color:#ae81ff">6337</span> <span style="color:#ae81ff">2034</span> <span style="color:#ae81ff">3565</span> <span style="color:#ae81ff">6320</span> <span style="color:#ae81ff">3139</span> <span style="color:#ae81ff">6566</span> <span style="color:#ae81ff">2034</span> <span style="color:#ae81ff">3363</span>  c7 45ec 19ef 43c
+&lt; 0001ba30: <span style="color:#ae81ff">6420</span> <span style="color:#ae81ff">2075</span> 2e2e 2e2e 2e2e 332e 2e45 2e2e  d  u......3..E..
+&lt; 0001ba40: 2e43 2e0a <span style="color:#ae81ff">3030</span> <span style="color:#ae81ff">3030</span> <span style="color:#ae81ff">3638</span> <span style="color:#ae81ff">3130</span> 3a20 <span style="color:#ae81ff">3339</span>  .C..00006810: <span style="color:#ae81ff">39</span>
+---
+&gt; 0001ba20: <span style="color:#ae81ff">6337</span> <span style="color:#ae81ff">2034</span> <span style="color:#ae81ff">3565</span> <span style="color:#ae81ff">6320</span> <span style="color:#ae81ff">3434</span> <span style="color:#ae81ff">3966</span> <span style="color:#ae81ff">2031</span> <span style="color:#ae81ff">6333</span>  c7 45ec 449f 1c3
+&gt; 0001ba30: <span style="color:#ae81ff">6420</span> <span style="color:#ae81ff">2075</span> 2e2e 2e2e 2e2e 332e 2e45 2e44  d  u......3..E.D</code></pre></div>
+<p>Nuestro <strong>K0</strong> que conocemos gracias al analisis del blogpost el cual es <strong>0xCD43EF19</strong>, en el binario del reto parece haber sido cambiado por  <strong>0x3D1C9F44</strong>.
+Y mirando mas los cambios del binario del reto, nos encontramos con que otro valor ha sido cambiado, en este caso es el <strong>0x53702f68</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">&lt; 0001bb80: <span style="color:#ae81ff">2036</span> <span style="color:#ae81ff">3832</span> <span style="color:#ae81ff">6620</span> 202e 4d2e 2e2e 2e2e 2e2e   682f  .M.......
+&lt; 0001bb90: 2e2e 2e2e 2e68 2f0a <span style="color:#ae81ff">3030</span> <span style="color:#ae81ff">3030</span> <span style="color:#ae81ff">3638</span> <span style="color:#ae81ff">3630</span>  .....h/.00006860
+&lt; 0001bba0: 3a20 <span style="color:#ae81ff">3730</span> <span style="color:#ae81ff">3533</span> <span style="color:#ae81ff">2033</span> <span style="color:#ae81ff">3364</span> <span style="color:#ae81ff">3120</span> <span style="color:#ae81ff">3430</span> <span style="color:#ae81ff">3839</span>  : <span style="color:#ae81ff">7053</span> 33d1 <span style="color:#ae81ff">4089</span>
+---
+&gt; 0001bb80: <span style="color:#ae81ff">2031</span> <span style="color:#ae81ff">3031</span> <span style="color:#ae81ff">3020</span> 202e 4d2e 2e2e 2e2e 2e2e   <span style="color:#ae81ff">1010</span>  .M.......
+&gt; 0001bb90: 2e2e 2e2e 2e2e 2e0a <span style="color:#ae81ff">3030</span> <span style="color:#ae81ff">3030</span> <span style="color:#ae81ff">3638</span> <span style="color:#ae81ff">3630</span>  ........00006860
+&gt; 0001bba0: 3a20 <span style="color:#ae81ff">3130</span> <span style="color:#ae81ff">3130</span> <span style="color:#ae81ff">2033</span> <span style="color:#ae81ff">3364</span> <span style="color:#ae81ff">3120</span> <span style="color:#ae81ff">3430</span> <span style="color:#ae81ff">3839</span>  : <span style="color:#ae81ff">1010</span> 33d1 <span style="color:#ae81ff">4089</span></code></pre></div>
+<p>El valor <strong>0x53702f68</strong> a sido cambiado en el binario del reto por <strong>0x10101010</strong>.
+Asi que hagamos los cambios necesarios en nuestro codigo y veamos si obtenemos algo interesante!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">[<span style="color:#f92672">...</span>]
+key <span style="color:#f92672">=</span>  <span style="color:#ae81ff">0xCD43EF19</span>
+key <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x3D1C9F44</span> <span style="color:#75715e">#Esta es la buena!</span>
+ctext <span style="color:#f92672">=</span> bytearray()
+
+<span style="color:#66d9ef">for</span> i, v <span style="color:#f92672">in</span> enumerate(payload):
+    n <span style="color:#f92672">=</span> ((__ROR4__(key, <span style="color:#ae81ff">0x05</span>) <span style="color:#f92672">-</span> __ROL4__(i, <span style="color:#ae81ff">0x0D</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>) <span style="color:#f92672">^</span> v) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>
+    ctext<span style="color:#f92672">.</span>append(n)
+    tmp <span style="color:#f92672">=</span> __ROL4__(n, (i <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x1F</span>) <span style="color:#f92672">+</span> __ROR4__(key, <span style="color:#ae81ff">0x1</span>)
+    key <span style="color:#f92672">=</span> tmp <span style="color:#f92672">^</span> (__ROR4__(i, <span style="color:#ae81ff">0x17</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x10101010</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFFFFFFFF</span> <span style="color:#75715e"># Key anterior: 0x53702f68, esta es la buena!</span></code></pre></div>
+<p>Ejecutando&hellip;</p>
+
+<p><img src="https://ezequieltbh.me/images/posts/lucky-ctf-eko-2020/lucky-flag.png" alt="Lucky-FLAG" /></p>
+
+<p>Eso parece un FLAG! :)</p>
+
+<p>Reto terminado!</p>
+
+<p>En conclusion: Descargamos una muestra original del Malware, luego realizamos un diff entre el original y el malware del reto para encontrar la claves de cifrado validas, usamos el codigo Python del blogpost para realizar el descifrado del PCAP y LISTO!</p>
+
+<p>Esperamos que les haya gustado el Writeup del reto.
+Cualquier consulta, tienen las redes sociales de contacto en el <a href="https://ezequieltbh.me/">Home</a></p>
+
+<p>Cuidense y Saludos!
+:)</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="https://ezequieltbh.me/tags/ctf">CTF</a></span><span class="tag"><a href="https://ezequieltbh.me/tags/writeup">Writeup</a></span><span class="tag"><a href="https://ezequieltbh.me/tags/challenge">Challenge</a></span>
+                </p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1097 Words</p>
+
+            <p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2020-10-07 21:00 -0300</p>
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h"></span>
+                    <hr />
+                </div>
+
+                <div class="pagination__buttons">
+                    
+
+                    
+                        <span class="button next">
+                            <a href="https://ezequieltbh.me/posts/2019/05/love-is-in-the-air-reverse-engineering-a-shitty-drone/">
+                                <span class="button__text">Love is in the air: Reverse Engineering a shitty drone</span>
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    
+                </div>
+            </div>
+        
+
+        
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2020</span>
+            
+                <span><a href="https://ezequieltbh.me">Ezequiel Tavella</a></span>
+            
+            <span>All rights reserved.</span>
+            <span> <a href="https://ezequieltbh.me/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>Powered by <a href="http://gohugo.io">Hugo</a></span>
+            <span>Made with &#10084; by <a href="https://github.com/rhazdon">rhazdon</a></span>
+        </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+
+<script type="text/javascript" src="https://ezequieltbh.me/bundle.min.cf7871ed49474a80ed457154d24e61f7881adbe0f9384951a74ac46b688a39a4dbfa68bc6d37baeb058186de354ead3487d4ee7f083ea4cba860c48600b694f3.js" integrity="sha512-z3hx7UlHSoDtRXFU0k5h94ga2&#43;D5OElRp0rEa2iKOaTb&#43;mi8bTe66wWBht41Tq00h9Tufwg&#43;pMuoYMSGALaU8w=="></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-137782393-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
+    </body>
+</html>

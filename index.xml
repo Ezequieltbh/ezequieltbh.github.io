@@ -6,10 +6,21 @@
     <description>Recent content on EzequielTBH Blog&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Tue, 21 May 2019 00:00:00 -0300</lastBuildDate>
+    <lastBuildDate>Thu, 08 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://ezequieltbh.me/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ekoparty 2020 Main CTF - Lucky Challenge Writeup</title>
+      <link>https://ezequieltbh.me/posts/2020/10/ekoparty-2020-main-ctf-lucky-challenge-writeup/</link>
+      <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/posts/2020/10/ekoparty-2020-main-ctf-lucky-challenge-writeup/</guid>
+      <description>La conferencia de seguridad Ekoparty se realizo hace unos dias nuevamente, aun asi con una pandemia de por medio, la misma se realizo de forma online por suerte :)
+Este año juntos con unos compañeros y amigos, estuvimos participando del Main CTF de la Ekoparty, para ser el primer año participando y un equipo recien armado, obtuvimos muy buenos resultados en la tabla de posiciones.
+Los desafios del CTF estaban enfocados en Malware, los retos eran binarios reales de Malware mayormente Ransomware que fueron modificados o aprovechados de alguna forma para poder proporcionar un flag.</description>
+    </item>
     
     <item>
       <title>Love is in the air: Reverse Engineering a shitty drone</title>

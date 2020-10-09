@@ -6,10 +6,19 @@
     <description>Recent content in Tags on EzequielTBH Blog&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>All rights reserved.</copyright>
-    <lastBuildDate>Wed, 05 Aug 2015 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 08 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://ezequieltbh.me/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Challenge</title>
+      <link>https://ezequieltbh.me/tags/challenge/</link>
+      <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ezequieltbh.me/tags/challenge/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Criptografia</title>
@@ -32,7 +41,7 @@
     <item>
       <title>Ctf</title>
       <link>https://ezequieltbh.me/tags/ctf/</link>
-      <pubDate>Wed, 05 Aug 2015 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://ezequieltbh.me/tags/ctf/</guid>
       <description></description>
@@ -89,15 +98,6 @@
       <pubDate>Tue, 21 May 2019 00:00:00 -0300</pubDate>
       
       <guid>https://ezequieltbh.me/tags/reversing/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Rf</title>
-      <link>https://ezequieltbh.me/tags/rf/</link>
-      <pubDate>Tue, 21 May 2019 00:00:00 -0300</pubDate>
-      
-      <guid>https://ezequieltbh.me/tags/rf/</guid>
       <description></description>
     </item>
     

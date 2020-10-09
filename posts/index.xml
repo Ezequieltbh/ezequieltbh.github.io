@@ -6,8 +6,139 @@
         <description>Recent content in Posts on EzequielTBH Blog&#39;s</description>
         <generator>Hugo -- gohugo.io</generator>
         <copyright>All rights reserved.</copyright>
-        <lastBuildDate>Tue, 21 May 2019 00:00:00 -0300</lastBuildDate>
+        <lastBuildDate>Thu, 08 Oct 2020 00:00:00 +0000</lastBuildDate>
         <atom:link href="https://ezequieltbh.me/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Ekoparty 2020 Main CTF - Lucky Challenge Writeup</title>
+            <link>https://ezequieltbh.me/posts/2020/10/ekoparty-2020-main-ctf-lucky-challenge-writeup/</link>
+            <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
+            
+            <guid>https://ezequieltbh.me/posts/2020/10/ekoparty-2020-main-ctf-lucky-challenge-writeup/</guid>
+            <description>La conferencia de seguridad Ekoparty se realizo hace unos dias nuevamente, aun asi con una pandemia de por medio, la misma se realizo de forma online por suerte :)
+Este año juntos con unos compañeros y amigos, estuvimos participando del Main CTF de la Ekoparty, para ser el primer año participando y un equipo recien armado, obtuvimos muy buenos resultados en la tabla de posiciones.
+Los desafios del CTF estaban enfocados en Malware, los retos eran binarios reales de Malware mayormente Ransomware que fueron modificados o aprovechados de alguna forma para poder proporcionar un flag.</description>
+            <content type="html"><![CDATA[<p>La conferencia de seguridad <a href="https://ekoparty.org/" target="_blank">Ekoparty</a> se realizo hace unos dias nuevamente, aun asi con una pandemia de por medio, la misma se realizo de forma online por suerte :)</p>
+
+<p>Este año juntos con unos compañeros y amigos, estuvimos participando del Main CTF de la Ekoparty, para ser el primer año participando y un equipo recien armado, obtuvimos muy buenos resultados en la tabla de posiciones.</p>
+
+<p>Los desafios del CTF estaban enfocados en Malware, los retos eran binarios reales de Malware mayormente Ransomware que fueron modificados o aprovechados de alguna forma para poder proporcionar un flag.</p>
+
+<p>Este es un Writeup del reto llamado Lucky, el cual lo resolvimos junto a <a href="https://licenciaparahackear.github.io/" target="_blank"><strong>Matias Lang</strong></a>.
+Les recomiendo mucho seguir su blog, el contenido que publica es de una gran calidad tecnica y muy interesante!</p>
+
+<p><img src="/images/posts/lucky-ctf-eko-2020/lucky.png" alt="Lucky-Descripcion" /></p>
+
+<p>Descargando el archivo Zip vemos que el mismo contiene dos archivos: un PCAP y un archivo sin extension que resulta ser el malware en si.</p>
+
+<p>Cuando abrimos el PCAP podemos observar que hay una peticion HTTP que es el unico trafico capturado:</p>
+
+<p><img src="/images/posts/lucky-ctf-eko-2020/lucky-pcap.png" alt="Lucky-PCAP" /></p>
+
+<p>Por el otro lado, tenemos el binario del Malware en si, llamado &ldquo;lucky&rdquo; sin ninguna extension.
+Lo primero que hicimos fue subirlo a <a href="https://www.virustotal.com/gui/file/cb5bc1b19737197d4fedc3ce0311414f65662b88fc7164f5ed8091e9a12f6fe0/community" target="_blank">Virustotal</a> y asi poder identificar que Malware estabamos enfrentando:</p>
+
+<ul>
+<li><strong>Win32.Trojan-Ransom.Locky.A</strong></li>
+</ul>
+
+<p>Locky es muy parecido a Lucky&hellip; No debe ser coincidencia, eso no suele pasar en los CTFs&hellip;
+Mirando la pestaña <strong>Community</strong> de Virustotal nos encontramos con el engine de analisis Intezer, el cual tiene una funcionalidad muy interesante: comparacion de samples basandose en sus &ldquo;genes&rdquo;.</p>
+
+<p>De esta manera usando <a href="https://analyze.intezer.com/files/03f6ab1b482eac4acfb793c3e8d0656d7c33cddb5fc38416019d526f43577761/families/b119db45-ccea-4bc3-b6b4-5b00188b50c1" target="_blank"><strong>Intezer</strong></a>, obtuvimos que la muestra original tiene el SHA 256 <strong>03f6ab1b482eac4acfb793c3e8d0656d7c33cddb5fc38416019d526f43577761</strong> y usando <a href="https://app.any.run/tasks/274d2b17-d507-408d-a591-28b92102ae3c" target="_blank">AnyRun</a> obtuvimos una muestra del Ransomware original.</p>
+
+<p>El siguiente paso, fue buscar un poco de informacion acerca del Ransomware, hasta el momento tenemos un PCAP con una peticion HTTP que parece tener informacion binaria, una muestra del malware Original y nuestro malware del CTF.</p>
+
+<p>Asi que con un poco de Google nos encontramos con un analisis de <a href="http://htnhan.blogspot.com/2016/04/reversing-locky-juicy-parts.html" target="_blank">htnhan</a> muy interesante y a bajo nivel sobre como funciona el Malware.</p>
+
+<p>En este analisis, estamos interesando en la seccion <strong>C&amp;C communication</strong> que esta en el subtitulo <strong>6. Main stuffs</strong>, al parecer el Malware se comunica con su C&amp;C usando peticiones HTTP POST pero con el contenido binario cifrado usando un algoritmo propio del Malware.</p>
+
+<p>Recuerdan el PCAP que tenemos? Bueno tal vez viene por ahi&hellip; el reto es entender el algoritmo de cifrado utilizado por el Malware, implementarlo y descifrar esa informacion binaria del PCAP.</p>
+
+<p>Asi que eso fue lo que hicimos, simplemente usamos el codigo del blogpost para realizar el descifrado del payload en el PCAP, para esto necesitamos la key de cifrado que se llama <strong>K0</strong> y la funcion <strong>client_decrypt</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_rol</span>(val, bits, bit_size):
+    <span style="color:#66d9ef">return</span> (val <span style="color:#f92672">&lt;&lt;</span> bits <span style="color:#f92672">%</span> bit_size) <span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> bit_size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">|</span> \
+           ((val <span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> bit_size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">&gt;&gt;</span> (bit_size <span style="color:#f92672">-</span> (bits <span style="color:#f92672">%</span> bit_size)))
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_ror</span>(val, bits, bit_size):
+    <span style="color:#66d9ef">return</span> ((val <span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> bit_size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">&gt;&gt;</span> bits <span style="color:#f92672">%</span> bit_size) <span style="color:#f92672">|</span> \
+           (val <span style="color:#f92672">&lt;&lt;</span> (bit_size <span style="color:#f92672">-</span> (bits <span style="color:#f92672">%</span> bit_size)) <span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> bit_size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>))
+
+__ROR4__ <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> val, bits: _ror(val, bits, <span style="color:#ae81ff">32</span>)
+__ROL4__ <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> val, bits: _rol(val, bits, <span style="color:#ae81ff">32</span>)
+
+payload <span style="color:#f92672">=</span> bytearray(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\x1f\xdd\x28\xc1\xdb\x96\x8f\x37\x44\x97\x6c\x3d\xd6\x9a\xf9\xaa\x8a\x15\x15\x86\xa8\xf6\xb3\x64\x23\xf5\x7a\xbc\x41\x4a\x5e\x14\x6f\x6a\xce\xc8\x51\x6b\x43\xde\x72\x27\x95\xa4\xbd\xd4\x72\xc5\x6d\x61\xfe\x8f\x79\x07\x92\x36\x9e\x10\xcf\x10\xb1\xc3\x58\x25\x3d\xea\xb2\xb1\x59\xf7\x4f\xd2\x3c\x7e\x76\x59\xaa\x46\x1e\xb4\xf8\xf9\x07\x25\xc0</span><span style="color:#e6db74">&#34;</span>)
+
+key <span style="color:#f92672">=</span>  <span style="color:#ae81ff">0xCD43EF19</span>
+ctext <span style="color:#f92672">=</span> bytearray()
+
+<span style="color:#66d9ef">for</span> i, v <span style="color:#f92672">in</span> enumerate(payload):
+    n <span style="color:#f92672">=</span> ((__ROR4__(key, <span style="color:#ae81ff">0x05</span>) <span style="color:#f92672">-</span> __ROL4__(i, <span style="color:#ae81ff">0x0D</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>) <span style="color:#f92672">^</span> v) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>
+    ctext<span style="color:#f92672">.</span>append(n)
+    tmp <span style="color:#f92672">=</span> __ROL4__(n, (i <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x1F</span>) <span style="color:#f92672">+</span> __ROR4__(key, <span style="color:#ae81ff">0x1</span>)
+    key <span style="color:#f92672">=</span> tmp <span style="color:#f92672">^</span> (__ROR4__(i, <span style="color:#ae81ff">0x17</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x53702f68</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFFFFFFFF</span>
+
+<span style="color:#66d9ef">print</span>(ctext)</code></pre></div>
+<p>Ahora lo ejecutamos</p>
+
+<ul>
+<li><strong>python3 decode.py</strong></li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">~ ❯❯❯ python3 ./decode-lucky.py
+bytearray<span style="color:#f92672">(</span>b<span style="color:#e6db74">&#39;g\x19\xc0\xd61\xa0\x7f\x9a\x11\xde\xe3\x81\xe3;\xe2\xfcJ\x0e\x13\x1e\xcf~&lt;\xf8\x06\x1c\x85\xd8X|\x0eg\xbf\xff\x9f\xef\xb5\x9c\x9f)\x066\xf6\xce\xa3`c\x16o\x9b\x08\xef\xe2q\xe2\xd5\x84\xe6\xbf\xb3K\x05p\xea\xbdWZUu\x1c\x15^\xe97im\xdbETJ\xec\x08t\x87\xba&#39;</span><span style="color:#f92672">)</span></code></pre></div>
+<p>No parecer ser texto en claro ni tener el flag que estamos buscando&hellip;</p>
+
+<p>Luego de pensar un rato y analizar posibilidades, se nos ocurrio, que pasa si comparamos la muestra original que tenemos y la muestra modificada que nos proporciona el  reto?</p>
+
+<p>Para eso usamos los siguientes comandos con la idea de obtener una representacion hexadecimal de cada binario, siendo <strong>sample_1.bin</strong> la muestra original y <strong>lucky</strong> la muestra del reto, para luego hacer una comparacion de las mismas usando <strong>diff</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">xxd sample_1.bin &gt; sample_1_diff.hex
+xxd lucky &gt; lucky_diff.hex
+diff &lt;<span style="color:#f92672">(</span>xxd sample_1_diff.hex<span style="color:#f92672">)</span> &lt;<span style="color:#f92672">(</span>xxd lucky_diff.hex<span style="color:#f92672">)</span></code></pre></div>
+<p>Cuando hacemos esto vemos que buscando por nuestro <strong>K0</strong>, recuerden que es la key de cifrado, encontramos que hay una diferencia:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">&lt; 0001ba20: <span style="color:#ae81ff">6337</span> <span style="color:#ae81ff">2034</span> <span style="color:#ae81ff">3565</span> <span style="color:#ae81ff">6320</span> <span style="color:#ae81ff">3139</span> <span style="color:#ae81ff">6566</span> <span style="color:#ae81ff">2034</span> <span style="color:#ae81ff">3363</span>  c7 45ec 19ef 43c
+&lt; 0001ba30: <span style="color:#ae81ff">6420</span> <span style="color:#ae81ff">2075</span> 2e2e 2e2e 2e2e 332e 2e45 2e2e  d  u......3..E..
+&lt; 0001ba40: 2e43 2e0a <span style="color:#ae81ff">3030</span> <span style="color:#ae81ff">3030</span> <span style="color:#ae81ff">3638</span> <span style="color:#ae81ff">3130</span> 3a20 <span style="color:#ae81ff">3339</span>  .C..00006810: <span style="color:#ae81ff">39</span>
+---
+&gt; 0001ba20: <span style="color:#ae81ff">6337</span> <span style="color:#ae81ff">2034</span> <span style="color:#ae81ff">3565</span> <span style="color:#ae81ff">6320</span> <span style="color:#ae81ff">3434</span> <span style="color:#ae81ff">3966</span> <span style="color:#ae81ff">2031</span> <span style="color:#ae81ff">6333</span>  c7 45ec 449f 1c3
+&gt; 0001ba30: <span style="color:#ae81ff">6420</span> <span style="color:#ae81ff">2075</span> 2e2e 2e2e 2e2e 332e 2e45 2e44  d  u......3..E.D</code></pre></div>
+<p>Nuestro <strong>K0</strong> que conocemos gracias al analisis del blogpost el cual es <strong>0xCD43EF19</strong>, en el binario del reto parece haber sido cambiado por  <strong>0x3D1C9F44</strong>.
+Y mirando mas los cambios del binario del reto, nos encontramos con que otro valor ha sido cambiado, en este caso es el <strong>0x53702f68</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">&lt; 0001bb80: <span style="color:#ae81ff">2036</span> <span style="color:#ae81ff">3832</span> <span style="color:#ae81ff">6620</span> 202e 4d2e 2e2e 2e2e 2e2e   682f  .M.......
+&lt; 0001bb90: 2e2e 2e2e 2e68 2f0a <span style="color:#ae81ff">3030</span> <span style="color:#ae81ff">3030</span> <span style="color:#ae81ff">3638</span> <span style="color:#ae81ff">3630</span>  .....h/.00006860
+&lt; 0001bba0: 3a20 <span style="color:#ae81ff">3730</span> <span style="color:#ae81ff">3533</span> <span style="color:#ae81ff">2033</span> <span style="color:#ae81ff">3364</span> <span style="color:#ae81ff">3120</span> <span style="color:#ae81ff">3430</span> <span style="color:#ae81ff">3839</span>  : <span style="color:#ae81ff">7053</span> 33d1 <span style="color:#ae81ff">4089</span>
+---
+&gt; 0001bb80: <span style="color:#ae81ff">2031</span> <span style="color:#ae81ff">3031</span> <span style="color:#ae81ff">3020</span> 202e 4d2e 2e2e 2e2e 2e2e   <span style="color:#ae81ff">1010</span>  .M.......
+&gt; 0001bb90: 2e2e 2e2e 2e2e 2e0a <span style="color:#ae81ff">3030</span> <span style="color:#ae81ff">3030</span> <span style="color:#ae81ff">3638</span> <span style="color:#ae81ff">3630</span>  ........00006860
+&gt; 0001bba0: 3a20 <span style="color:#ae81ff">3130</span> <span style="color:#ae81ff">3130</span> <span style="color:#ae81ff">2033</span> <span style="color:#ae81ff">3364</span> <span style="color:#ae81ff">3120</span> <span style="color:#ae81ff">3430</span> <span style="color:#ae81ff">3839</span>  : <span style="color:#ae81ff">1010</span> 33d1 <span style="color:#ae81ff">4089</span></code></pre></div>
+<p>El valor <strong>0x53702f68</strong> a sido cambiado en el binario del reto por <strong>0x10101010</strong>.
+Asi que hagamos los cambios necesarios en nuestro codigo y veamos si obtenemos algo interesante!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">[<span style="color:#f92672">...</span>]
+key <span style="color:#f92672">=</span>  <span style="color:#ae81ff">0xCD43EF19</span>
+key <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x3D1C9F44</span> <span style="color:#75715e">#Esta es la buena!</span>
+ctext <span style="color:#f92672">=</span> bytearray()
+
+<span style="color:#66d9ef">for</span> i, v <span style="color:#f92672">in</span> enumerate(payload):
+    n <span style="color:#f92672">=</span> ((__ROR4__(key, <span style="color:#ae81ff">0x05</span>) <span style="color:#f92672">-</span> __ROL4__(i, <span style="color:#ae81ff">0x0D</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>) <span style="color:#f92672">^</span> v) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>
+    ctext<span style="color:#f92672">.</span>append(n)
+    tmp <span style="color:#f92672">=</span> __ROL4__(n, (i <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFF</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x1F</span>) <span style="color:#f92672">+</span> __ROR4__(key, <span style="color:#ae81ff">0x1</span>)
+    key <span style="color:#f92672">=</span> tmp <span style="color:#f92672">^</span> (__ROR4__(i, <span style="color:#ae81ff">0x17</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x10101010</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xFFFFFFFF</span> <span style="color:#75715e"># Key anterior: 0x53702f68, esta es la buena!</span></code></pre></div>
+<p>Ejecutando&hellip;</p>
+
+<p><img src="/images/posts/lucky-ctf-eko-2020/lucky-flag.png" alt="Lucky-FLAG" /></p>
+
+<p>Eso parece un FLAG! :)</p>
+
+<p>Reto terminado!</p>
+
+<p>En conclusion: Descargamos una muestra original del Malware, luego realizamos un diff entre el original y el malware del reto para encontrar la claves de cifrado validas, usamos el codigo Python del blogpost para realizar el descifrado del PCAP y LISTO!</p>
+
+<p>Esperamos que les haya gustado el Writeup del reto.
+Cualquier consulta, tienen las redes sociales de contacto en el <a href="/">Home</a></p>
+
+<p>Cuidense y Saludos!
+:)</p>
+]]></content>
+        </item>
         
         <item>
             <title>Love is in the air: Reverse Engineering a shitty drone</title>
